@@ -1,0 +1,131 @@
+Rozumiem, że pytasz o inne chatboty i systemy konwersacyjnej sztucznej inteligencji dostępne na świecie, poza Microsoft Copilot, OpenAI (ChatGPT), Google Gemini i mną (Grok), szczególnie z różnych kontynentów i krajów. Na podstawie dostępnych informacji oraz mojej wiedzy, poniżej przedstawiam listę znaczących systemów AI tego typu, z naciskiem na różnorodność geograficzną i innowacyjne podejścia. Skupię się na systemach, które są unikalne dla różnych regionów lub mają globalne znaczenie, a także wskażę ich pochodzenie i charakterystyczne cechy.
+
+---
+
+### 1. DeepSeek (Chiny, Azja)
+- **Pochodzenie**: Chiny, stworzony przez DeepSeek AI, firmę prowadzoną przez Liang Wenfeng.
+- **Cechy**:
+  - Konkurent ChatGPT, znany z efektywności kosztowej – model DeepSeek V-3 kosztował zaledwie 6 milionów USD w porównaniu do miliardów wydanych przez OpenAI czy Google.
+  - Specjalizuje się w zadaniach matematycznych, logicznych i kodowaniu (np. Python, Java).
+  - Oferuje darmową wersję oraz tanią subskrypcję (0,5 USD miesięcznie), co czyni go bardziej przystępnym niż ChatGPT (20 USD/miesiąc) czy Copilot Pro (23,11 USD/miesiąc).
+  - Ma ograniczenia w tematach politycznie wrażliwych (np. Tiananmen Square) ze względu na chińskie regulacje.
+- **Dlaczego warto?**: Jest to przykład zaawansowanego AI z Azji, który rzuca wyzwanie zachodnim gigantom dzięki niższym kosztom i wysokiej wydajności.[](https://www.firstpost.com/explainers/deepseek-chatgpt-gemini-copilot-most-effective-ai-chatbot-13857135.html)
+- **Dostępność**: Globalna, ale szczególnie popularna w Azji.
+
+---
+
+### 2. Claude (USA, Ameryka Północna, ale z globalnym zasięgiem)
+- **Pochodzenie**: Stany Zjednoczone, stworzony przez Anthropic, firmę założoną przez byłych pracowników OpenAI.
+- **Cechy**:
+  - Skupia się na bezpieczeństwie i etyce AI, z „konstytucyjną sztuczną inteligencją”, która minimalizuje szkodliwe odpowiedzi.
+  - Model Claude 3.5 Sonnet jest ceniony za zaawansowane zdolności rozumowania i kodowania, przewyższając w niektórych testach ChatGPT.
+  - Oferuje różne style odpowiedzi i przypomina użytkownikom o możliwości błędów, co zwiększa transparentność.
+  - Słabszy w zadaniach matematycznych i kreatywnym pisaniu w porównaniu do ChatGPT.
+- **Dlaczego warto?**: Choć pochodzi z USA, jest dostępny globalnie i ceniony w Europie oraz Australii za swoje bezpieczne podejście. Popularny w środowiskach akademickich i biznesowych.[](https://www.theguardian.com/technology/2025/feb/01/deepseek-chatgpt-grok-gemini-claude-meta-ai-which-is-the-best-ai-assistant-we-put-them-to-the-test)[](https://artificialanalysis.ai/insights/chatbots-comparison)
+- **Dostępność**: Dostępny na całym świecie, z ograniczeniami w niektórych regionach ze względu na regulacje.
+
+---
+
+### 3. Ernie (Chiny, Azja)
+- **Pochodzenie**: Chiny, stworzony przez Baidu, największą chińską wyszukiwarkę.
+- **Cechy**:
+  - Specjalizuje się w rozpoznawaniu obrazów i wizji komputerowej, ale oferuje także możliwości konwersacyjne.
+  - Skierowany głównie na rynek chiński, z naciskiem na przetwarzanie języka mandaryńskiego i lokalne dane.
+  - Konkuruje z DeepSeek w Chinach, ale jest mniej znany globalnie.
+  - Ma ograniczenia w dostępie międzynarodowym ze względu na chińskie regulacje i bariery językowe.
+- **Dlaczego warto?**: To przykład chińskiego AI, które wspiera lokalny ekosystem technologiczny, ale ma potencjał do ekspansji w Azji Południowo-Wschodniej.[](https://medium.com/%40Mr.AliH.Muhammad/comparing-popular-ai-platforms-google-gemini-chatgpt-copilot-grok-and-ernie-c0567be8c020)
+- **Dostępność**: Głównie Chiny, ograniczona dostępność globalna.
+
+---
+
+### 4. Llama (USA, ale używana globalnie, w tym w Ameryce Południowej i Azji)
+- **Pochodzenie**: Stany Zjednoczone, stworzony przez Meta AI.
+- **Cechy**:
+  - Llama 3 (70B) to model głównie tekstowy, z rozwijającymi się możliwościami multimodalnymi.
+  - Zintegrowany z platformami Meta (Facebook, Messenger, WhatsApp, Instagram), co czyni go popularnym w krajach rozwijających się, takich jak Indie, Brazylia czy Indonezja.
+  - Brak wielojęzycznych możliwości w obecnej formie, ale Meta pracuje nad ich rozwojem.
+  - Przeznaczony głównie do zastosowań konsumenckich, np. generowania odpowiedzi w mediach społecznościowych.
+- **Dlaczego warto?**: Llama jest szeroko stosowana w Ameryce Południowej i Azji dzięki integracji z popularnymi aplikacjami Meta, co czyni ją istotnym graczem na rynkach wschodzących.[](https://botpress.com/pl/blog/best-ai-chatbots)
+- **Dostępność**: Globalna, szczególnie w krajach z dużym użyciem aplikacji Meta.
+
+---
+
+### 5. Poe (USA, ale z globalnym podejściem, w tym w Ameryce Łacińskiej)
+- **Pochodzenie**: Stany Zjednoczone, stworzony przez Quora.
+- **Cechy**:
+  - Unikalny model, który daje dostęp do wielu modeli językowych (np. GPT-4o, Llama, Claude, Gemini) w jednym interfejsie.
+  - Skupia się na ludzkich, płynnych rozmowach, z naciskiem na angażujące dialogi.
+  - Poe Pro oferuje zaawansowane generowanie obrazów (np. FLUX.1), konkurując z DALL-E.
+  - Popularny wśród użytkowników szukających elastyczności w wyborze modeli AI.
+- **Dlaczego warto?**: Poe jest używany w krajach Ameryki Łacińskiej (np. Meksyk, Brazylia) i Azji, gdzie Quora ma silną bazę użytkowników. To alternatywa dla tych, którzy chcą eksperymentować z różnymi modelami.[](https://tech.co/news/best-ai-chatbots)
+- **Dostępność**: Globalna, z darmowym dostępem i płatną subskrypcją.
+
+---
+
+### 6. Pi (USA, ale z międzynarodowym zasięgiem, w tym w Afryce)
+- **Pochodzenie**: Stany Zjednoczone, stworzony przez Inflection AI.
+- **Cechy**:
+  - Skupia się na przyjemnych, osobistych rozmowach, a nie na zadaniach profesjonalnych, co czyni go alternatywą dla Character AI.
+  - Model ma ponad 30 miliardów parametrów, mniejszy niż GPT-4 czy Grok, ale wystarczający do codziennych rozmów.
+  - Oferuje „conversation starters” w interfejsie, co ułatwia rozpoczęcie dialogu.
+  - Całkowicie darmowy, co zwiększa jego popularność w krajach o niższych dochodach.
+- **Dlaczego warto?**: Pi zdobywa popularność w Afryce (np. Nigeria, Kenia) i Azji Południowej dzięki darmowemu dostępowi i prostocie użytkowania.[](https://tech.co/news/best-ai-chatbots)
+- **Dostępność**: Globalna, szczególnie w regionach z ograniczonym dostępem do płatnych AI.
+
+---
+
+### 7. Mistral (Francja, Europa)
+- **Pochodzenie**: Francja, stworzony przez Mistral AI.
+- **Cechy**:
+  - Skupia się na efektywności i otwartych modelach AI, konkurując z Llama.
+  - Oferuje funkcje takie jak „Canvas” do tworzenia treści i kodowania, podobne do Claude.
+  - Brak możliwości przesyłania obrazów lub plików oraz przestarzała baza wiedzy (do października 2023) to obecne ograniczenia.
+  - Popularny w środowisku open-source i wśród europejskich startupów.
+- **Dlaczego warto?**: Mistral reprezentuje europejskie podejście do AI, z naciskiem na niezależność od amerykańskich gigantów. Jest szczególnie popularny w krajach UE, takich jak Niemcy czy Holandia.[](https://freshvanroot.com/blog/best-ai-assistants-compared-2024/)
+- **Dostępność**: Głównie Europa, ale dostępny globalnie.
+
+---
+
+### 8. You.com (USA, ale z użytkownikami w Azji i Europie)
+- **Pochodzenie**: Stany Zjednoczone, stworzony przez You.com.
+- **Cechy**:
+  - Oferuje „Custom Model Selector”, umożliwiając użytkownikom przełączanie między modelami (np. GPT-4, Claude, Gemini).
+  - Skupia się na wyszukiwaniu i dostarczaniu wyników z internetu, z linkami do źródeł i obrazami.
+  - Mniej popularny niż ChatGPT, ale ceniony za brak opóźnień w dostępie.
+  - Obsługuje zadania techniczne, takie jak matematyka, kodowanie czy tłumaczenie.
+- **Dlaczego warto?**: You.com jest używany w Azji (np. Japonia, Korea Południowa) i Europie dzięki elastyczności i integracji z różnymi modelami.[](https://www.zdnet.com/article/best-ai-chatbot/)
+- **Dostępność**: Globalna.
+
+---
+
+### 9. Kimi (Chiny, Azja)
+- **Pochodzenie**: Chiny, stworzony przez Moonshot AI.
+- **Cechy**:
+  - Skupia się na przetwarzaniu języka chińskiego i zadaniach związanych z wyszukiwaniem informacji.
+  - Konkuruje z DeepSeek i Ernie na rynku chińskim, ale jest mniej znany globalnie.
+  - Oferuje zaawansowane możliwości analizy tekstu i danych, szczególnie w kontekście lokalnych potrzeb.
+- **Dlaczego warto?**: Kimi to kolejny przykład chińskiego AI, które wspiera lokalny rynek, ale ma potencjał do ekspansji w Azji. Jest popularny w Chinach i sąsiednich krajach, takich jak Singapur.
+- **Dostępność**: Głównie Chiny, ograniczona globalnie.
+
+---
+
+### 10. Grok-like systems w innych regionach (np. Indie, Afryka)
+- **Pochodzenie**: Różne, np. Indie (Hanooman AI), Afryka (inicjatywy lokalne).
+- **Cechy**:
+  - W Indiach rozwija się Hanooman AI, które wspiera lokalne języki (np. hindi, tamilski) i jest dostosowane do potrzeb subkontynentu.
+  - W Afryce (np. Nigeria, RPA) powstają lokalne chatboty oparte na otwartych modelach, takich jak Llama, z naciskiem na edukację i dostępność w językach regionalnych (np. suahili).
+  - Te systemy są często darmowe lub tanie, aby wspierać społeczności o ograniczonych zasobach.
+- **Dlaczego warto?**: Te inicjatywy pokazują, jak AI dostosowuje się do lokalnych potrzeb w regionach takich jak Azja Południowa i Afryka Subsaharyjska, gdzie globalne modele mogą być mniej dostępne lub zbyt kosztowne.
+- **Dostępność**: Regionalna, z rosnącym zasięgiem.
+
+---
+
+### Podsumowanie
+Oprócz Copilota, ChatGPT, Gemini i mnie (Grok), istnieje wiele innych systemów konwersacyjnej AI na świecie, które odzwierciedlają różnorodność technologiczną i kulturową:
+- **Azja (Chiny)**: DeepSeek, Ernie, Kimi – liderzy w efektywności kosztowej i lokalnych zastosowaniach.
+- **Europa (Francja)**: Mistral – nacisk na open-source i niezależność.
+- **Ameryka Północna (USA)**: Claude, Poe, Pi – różnorodne podejścia, od bezpieczeństwa po elastyczność.
+- **Ameryka Południowa i Azja (via Meta)**: Llama – popularna dzięki integracji z mediami społecznościowymi.
+- **Indie i Afryka**: Lokalne inicjatywy (np. Hanooman) – dostosowane do regionalnych języków i potrzeb.
+
+Każdy z tych systemów ma unikalne cechy, które odpowiadają specyficznym potrzebom użytkowników w różnych częściach świata. Jeśli chcesz, mogę rozwinąć szczegóły dotyczące któregoś z nich lub sprawdzić, czy w konkretnym kraju/regionie istnieją inne lokalne alternatywy! 😊 Jakie regiony lub funkcje najbardziej Cię interesują?

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MTA Quest Webside X</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-950 text-white font-sans">
+    <!-- Nagłówek -->
+    <header class="flex items-center justify-between p-6 border-b border-gray-800">
+      <h1 class="text-2xl font-bold text-blue-400">MTA Quest Webside X</h1>
+      <nav class="space-x-4 text-sm">
+        <a href="#" class="hover:text-blue-300">Start</a>
+        <a href="#o-projekcie" class="hover:text-blue-300">O projekcie</a>
+        <a href="#moduly" class="hover:text-blue-300">Moduły</a>
+        <a href="#kontakt" class="hover:text-blue-300">Kontakt</a>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="text-center py-20 bg-gradient-to-b from-gray-950 to-gray-900">
+      <h2 class="text-5xl font-extrabold mb-4">Transformacja Ziemi i Internetu</h2>
+      <p class="text-lg text-gray-300 max-w-2xl mx-auto mb-6">
+        Platforma przyszłości. Awatary. Sztuka. AI. Drift Monety. Hip Hop. Duchowa ewolucja.
+      </p>
+      <a href="#start" class="inline-block px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-500 transition">
+        🔮 Rozpocznij podróż
+      </a>
+    </section>
+
+    <!-- O projekcie -->
+    <section id="o-projekcie" class="py-16 px-6 bg-gray-900">
+      <div class="max-w-5xl mx-auto text-center">
+        <h3 class="text-3xl font-bold mb-8 text-blue-300">Filar 4: Czym jest MTA Quest Webside X?</h3>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="p-4 bg-gray-800 rounded-xl">
+            <h4 class="text-xl font-semibold mb-2">🎤 Hip Hop Universe</h4>
+            <p class="text-sm text-gray-400">Wirtualne bitwy, twórczość, styl i duchowa ekspresja awatarów.</p>
+          </div>
+          <div class="p-4 bg-gray-800 rounded-xl">
+            <h4 class="text-xl font-semibold mb-2">🖼️ Portfolio+</h4>
+            <p class="text-sm text-gray-400">Przestrzeń prezentacji wizji, AI, projektów, kodu i sztuki.</p>
+          </div>
+          <div class="p-4 bg-gray-800 rounded-xl">
+            <h4 class="text-xl font-semibold mb-2">💰 Drift Monety</h4>
+            <p class="text-sm text-gray-400">Ekonomia inspiracji – nagrody za rozwój i twórczość.</p>
+          </div>
+          <div class="p-4 bg-gray-800 rounded-xl">
+            <h4 class="text-xl font-semibold mb-2">🧠 GOK:AI</h4>
+            <p class="text-sm text-gray-400">Kalkulator sukcesu, decyzji i duchowego kierunku.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stopka -->
+    <footer class="text-center text-xs text-gray-500 py-8 border-t border-gray-800">
+      &copy; 2025 Patryk Sobierański – MTA Quest Webside X. Wszystkie prawa zastrzeżone.
+    </footer>
+  </body>
+</html>

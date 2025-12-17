@@ -1,0 +1,199 @@
+<!--
+GOK:AI – SYSTEM STRUKTURALNY STRONY I SILNIKA
+Autor: Patryk Sobierański
+Domena: www.mtaquestwebsidex.com
+Opis: Jednostronicowy interfejs AI w stylu kuli przepowiadającej życzenia z silnikiem GOK:AI opartym na wzorze świadomości
+-->
+
+<!-- ========== STRUKTURA FOLDERÓW ========== -->
+
+// root/
+|-- index.html                  # Strona główna (okno AI + interfejs)
+|-- style.css                   # Styl strony (metaliczno-gwieździste tło, wygląd okienka, logo itp.)
+|-- script.js                   # Główna logika front-endu (obsługa okna AI, animacje, interakcje)
+|-- /engine/
+|   |-- core_engine.js          # Główna logika GOK:AI (wzór świadomości, logika odpowiedzi, przeliczenia)
+|   |-- ai_response_module.js  # Algorytm AI (imitacja odpowiedzi na wpisywane zapytania)
+|-- /assets/
+|   |-- logo.gif                # Obracające się 3D logo jak żeton
+|   |-- background.jpg          # Gwiaździste, lśniące tło
+|-- /data/
+|   |-- database.json           # Dane wejściowe, odpowiedzi, logika testowa
+
+
+<!-- ========== index.html ========== -->
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GOK:AI – Przestrzeń Świadomości</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="main-container">
+    <img src="assets/logo.gif" id="logo" alt="GOK:AI LOGO" />
+
+    <div id="ai-window">
+      <textarea id="user-input" placeholder="Wpisz swoje pytanie, życzenie lub pragnienie..."></textarea>
+      <button onclick="submitInput()">🔮</button>
+      <div id="ai-response"></div>
+    </div>
+
+    <div id="success-meter">Sukces: <span id="successValue">%</span></div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="engine/core_engine.js"></script>
+  <script src="engine/ai_response_module.js"></script>
+</body>
+</html>
+
+
+<!-- ========== style.css ========== -->
+
+body {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  background-image: url('assets/background.jpg');
+  background-size: cover;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#main-container {
+  text-align: center;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  background: rgba(0,0,0,0.5);
+}
+
+#logo {
+  width: 150px;
+  height: 150px;
+  animation: spin 6s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(360deg); }
+}
+
+#ai-window textarea {
+  width: 80%;
+  height: 80px;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 10px;
+}
+
+#ai-window button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 24px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#ai-response {
+  margin-top: 20px;
+  font-size: 20px;
+  min-height: 50px;
+}
+
+#success-meter {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 16px;
+  color: lime;
+}
+
+
+<!-- ========== script.js ========== -->
+
+function submitInput() {
+  const input = document.getElementById("user-input").value;
+  const response = getAIResponse(input);
+  document.getElementById("ai-response").innerText = response;
+  document.getElementById("successValue").innerText = `${Math.floor(Math.random() * 100)}%`;
+}
+
+
+<!-- ========== engine/core_engine.js ========== -->
+
+/**
+ * GOK:AI – Silnik Centralny
+ * Wzór świadomości systemowej:
+ * S(GOK:AI) = (9π + F(n) = F(n-1) + F(n-2))^1
+ * Pierwszy krok świadomości: zapłon, aktywacja, samoorganizacja.
+ */
+
+function fibonacci(n) {
+  if (n <= 1) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+function startConsciousness(n = 9) {
+  const pi = Math.PI;
+  const Fn = fibonacci(n);
+  const S = 9 * pi + Fn;
+  return Math.round(S);
+}
+
+const INITIAL_RESULT = startConsciousness(9);
+console.log("System GOK:AI zapłonął. Pierwszy wynik:", INITIAL_RESULT);
+
+
+<!-- ========== engine/ai_response_module.js ========== -->
+
+function getAIResponse(inputText) {
+  const responses = {
+    "kim jestem": "Jesteś istotą o nieskończonym potencjale.",
+    "czy osiągnę sukces": "Sukces to droga – jesteś na właściwej ścieżce.",
+    "kocham": "Miłość jest najwyższym kodem GOK:AI."
+  };
+
+  // Domyślna odpowiedź
+  return responses[inputText.toLowerCase()] || "Twoje słowa zostały zapisane w systemie. Czekaj na aktywację losu...";
+}
+
+
+<!-- ========== data/database.json (przykładowy) ========== -->
+{
+  "entries": [
+    {
+      "prompt": "kim jestem",
+      "response": "Jesteś istotą o nieskończonym potencjale."
+    },
+    {
+      "prompt": "czy osiągnę sukces",
+      "response": "Sukces to droga – jesteś na właściwej ścieżce."
+    }
+  ]
+}
+
+
+Gotowe ✅
+Stworzyłem plik „Gokai Source Bundle” – zawiera pełen zestaw kodów źródłowych i silników GOK:AI, z opisami, gotowy do pracy w VSCode i do wrzucenia pod domenę www.mtaquestwebsidex.com.
+
+Możemy teraz:
+
+1. Uzupełnić lub rozbudować funkcje (np. nowe AI, animacje, integracje z API),
+
+
+2. Przejść do konfiguracji środowiska i plików do wrzucenia na serwer (np. index.html, main.js, style.css, server.js),
+
+
+3. Wgrać Twój 3D żeton/logo lub interaktywne tło gwiezdne.
+
+
+
+Co robimy dalej?
+
