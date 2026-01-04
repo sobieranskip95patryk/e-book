@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tokenizacja & Marketplace - Hip-Hop Universe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: white;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .header {
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .nav a:hover, .nav a.active {
+            background: rgba(78,205,196,0.3);
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(78,205,196,0.2)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            padding: 6rem 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 1rem;
+            color: #4ecdc4;
+            text-shadow: 0 0 20px rgba(78,205,196,0.5);
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 3vw, 1.6rem);
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .market-stats {
+            background: rgba(78,205,196,0.1);
+            border: 1px solid rgba(78,205,196,0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: bold;
+            color: #4ecdc4;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            margin-top: 0.5rem;
+        }
+
+        .content-section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: #4ecdc4;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .tokens-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .token-card {
+            background: linear-gradient(135deg, rgba(78,205,196,0.2), rgba(78,205,196,0.1));
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(78,205,196,0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .token-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(78,205,196,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .token-card:hover::before {
+            left: 100%;
+        }
+
+        .token-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(78,205,196,0.3);
+            border-color: #4ecdc4;
+        }
+
+        .token-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .token-name {
+            font-size: 1.3rem;
+            color: #4ecdc4;
+            font-weight: bold;
+        }
+
+        .token-symbol {
+            background: rgba(78,205,196,0.3);
+            color: #4ecdc4;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .artist-info {
+            margin-bottom: 1.5rem;
+        }
+
+        .artist-name {
+            font-size: 1.1rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .artist-genre {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+        }
+
+        .token-price {
+            font-size: 2rem;
+            color: #4ecdc4;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .price-change {
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+        }
+
+        .price-change.positive {
+            color: #4ecdc4;
+        }
+
+        .price-change.negative {
+            color: #ff6b6b;
+        }
+
+        .token-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid rgba(78,205,196,0.3);
+            border-bottom: 1px solid rgba(78,205,196,0.3);
+        }
+
+        .token-stat {
+            text-align: center;
+        }
+
+        .token-stat-value {
+            font-weight: bold;
+            color: #4ecdc4;
+            display: block;
+        }
+
+        .token-stat-label {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .token-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn-buy {
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+            color: white;
+        }
+
+        .btn-sell {
+            background: rgba(255,107,107,0.2);
+            border: 1px solid #ff6b6b;
+            color: #ff6b6b;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .trading-panel {
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 3rem 0;
+            border: 1px solid rgba(78,205,196,0.3);
+        }
+
+        .trading-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 0.5rem;
+        }
+
+        .trading-tab {
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .trading-tab.active {
+            background: rgba(78,205,196,0.3);
+            color: #4ecdc4;
+        }
+
+        .portfolio-section {
+            background: rgba(78,205,196,0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 3rem 0;
+        }
+
+        .portfolio-value {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .portfolio-total {
+            font-size: 3rem;
+            color: #4ecdc4;
+            font-weight: bold;
+        }
+
+        .portfolio-change {
+            font-size: 1.2rem;
+            color: #4ecdc4;
+        }
+
+        .chart-placeholder {
+            background: linear-gradient(45deg, rgba(78,205,196,0.1), rgba(69,183,209,0.1));
+            border-radius: 10px;
+            padding: 4rem 2rem;
+            margin: 2rem 0;
+            border: 2px dashed rgba(78,205,196,0.5);
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(78,205,196,0.1);
+            border-color: rgba(78,205,196,0.5);
+        }
+
+        .feature-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: #4ecdc4;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 2rem;
+            }
+            
+            .tokens-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .tokens-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1440px) {
+            .container {
+                max-width: 1400px;
+            }
+            
+            .tokens-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 767px) {
+            .token-actions {
+                flex-direction: column;
+            }
+            
+            .trading-tabs {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .token-stats {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .live-price {
+            animation: pulse 2s infinite;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">🎤 Hip-Hop Universe</div>
+            <nav class="nav">
+                <a href="responsive-demo.html">Główna</a>
+                <a href="infrastructure.html">Infrastruktura</a>
+                <a href="#" class="active">Tokenizacja</a>
+                <a href="drift-integration.html">Drift Money</a>
+                <a href="platform.html">Platforma</a>
+                <a href="expansion.html">Ekspansja</a>
+                <a href="governance.html">Zarządzanie</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>💰 Tokenizacja & Marketplace</h1>
+            <p>Pierwszy w Polsce marketplace tokenów artystów hip-hopowych. Inwestuj w kariery twórców i współtwórz przyszłość polskiego hip-hopu.</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <div class="market-stats">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">$527,000</span>
+                        <div class="stat-label">Całkowita Wartość</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24</span>
+                        <div class="stat-label">Aktywne Tokeny</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">1,234</span>
+                        <div class="stat-label">Inwestorów</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">+18.5%</span>
+                        <div class="stat-label">Średni Wzrost 30d</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">Real-time</span>
+                        <div class="stat-label">Aktualizacje Cen</div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Trending Tokeny Artystów</h2>
+            
+            <div class="tokens-grid">
+                <div class="token-card fade-in">
+                    <div class="token-header">
+                        <div class="token-name">MŁODY M</div>
+                        <div class="token-symbol">$MLODYM</div>
+                    </div>
+                    <div class="artist-info">
+                        <div class="artist-name">Młody M</div>
+                        <div class="artist-genre">Trap, New School</div>
+                    </div>
+                    <div class="token-price live-price">
+                        $24.50
+                        <span class="price-change positive">+8.2%</span>
+                    </div>
+                    <div class="token-stats">
+                        <div class="token-stat">
+                            <span class="token-stat-value">156</span>
+                            <div class="token-stat-label">Holders</div>
+                        </div>
+                        <div class="token-stat">
+                            <span class="token-stat-value">$3.8K</span>
+                            <div class="token-stat-label">24h Volume</div>
+                        </div>
+                        <div class="token-stat">
+                            <span class="token-stat-value">$245K</span>
+                            <div class="token-stat-label">Market Cap</div>
+                        </div>
+                    </div>
+                    <div class="token-actions">
+                        <button class="btn btn-buy">Kup</button>
+                        <button class="btn btn-sell">Sprzedaj</button>
+                    </div>
+                </div>
+
+                <div class="token-card fade-in">
+                    <div class="token-header">
+                        <div class="token-name">QUEBONAFIDE</div>
+                        <div class="token-symbol">$QUEBO</div>
+                    </div>
+                    <div class="artist-info">
+                        <div class="artist-name">Quebonafide</div>
+                        <div class="artist-genre">Rap, Mainstream</div>
+                    </div>
+                    <div class="token-price live-price">
+                        $89.30
+                        <span class="price-change positive">+12.4%</span>
+                    </div>
+                    <div class="token-stats">
+                        <div class="token-stat">
+                            <span class="token-stat-value">298</span>
+                            <div class="token-stat-label">Holders</div>
+                        </div>
+                        <div class="token-stat">
+                            <span class="token-stat-value">$12.1K</span>
+                            <div class="token-stat-label">24h Volume</div>
+                        </div>
+                        <div class="token-stat">
+                            <span class="token-stat-value">$892K</span>
+                            <div class="token-stat-label">Market Cap</div>
+                        </div>
+                    </div>
+                    <div class="token-actions">
+                        <button class="btn btn-buy">Kup</button>
+                        <button class="btn btn-sell">Sprzedaj</button>
+                    </div>
+                </div>
+
+                <div class="token-card fade-in">
+                    <div class="token-header">
+                        <div class="token-name">BEDOES</div>
+                        <div class="token-symbol">$BEDO</div>
+                    </div>
+                    <div class="artist-info">
+                        <div class="artist-name">Bedoes</div>
+                        <div class="artist-genre">Drill, Trap</div>
+                    </div>
+                    <div class="token-price live-price">
+                        $45.67
+                        <span class="price-change negative">-2.1%</span>
+                    </div>
+                    <div class="token-stats">
+                        <div class="token-stat">
+                            <span class="token-stat-value">203</span>
+                            <div class="token-stat-label">Holders</div>
+                        </div>
+                        <div class="token-stat">
+                            <span class="token-stat-value">$7.3K</span>
+                            <div class="token-stat-label">24h Volume</div>
+                        </div>
+                        <div class="token-stat">
+                            <span class="token-stat-value">$456K</span>
+                            <div class="token-stat-label">Market Cap</div>
+                        </div>
+                    </div>
+                    <div class="token-actions">
+                        <button class="btn btn-buy">Kup</button>
+                        <button class="btn btn-sell">Sprzedaj</button>
+                    </div>
+                </div>
+
+                <div class="token-card fade-in">
+                    <div class="token-header">
+                        <div class="token-name">SOLAR</div>
+                        <div class="token-symbol">$SOLAR</div>
+                    </div>
+                    <div class="artist-info">
+                        <div class="artist-name">Solar</div>
+                        <div class="artist-genre">Old School, Classic</div>
+                    </div>
+                    <div class="token-price live-price">
+                        $67.89
+                        <span class="price-change positive">+5.7%</span>
+                    </div>
+                    <div class="token-stats">
+                        <div class="token-stat">
+                            <span class="token-stat-value">187</span>
+                            <div class="token-stat-label">Holders</div>
+                        </div>
+                        <div class="token-stat">
+                            <span class="token-stat-value">$9.2K</span>
+                            <div class="token-stat-label">24h Volume</div>
+                        </div>
+                        <div class="token-stat">
+                            <span class="token-stat-label">Market Cap</div>
+                        </div>
+                    </div>
+                    <div class="token-actions">
+                        <button class="btn btn-buy">Kup</button>
+                        <button class="btn btn-sell">Sprzedaj</button>
+                    </div>
+                </div>
+
+                <div class="token-card fade-in">
+                    <div class="token-header">
+                        <div class="token-name">MATA</div>
+                        <div class="token-symbol">$MATA</div>
+                    </div>
+                    <div class="artist-info">
+                        <div class="artist-name">Mata</div>
+                        <div class="artist-genre">Experimental, Art Rap</div>
+                    </div>
+                    <div class="token-price live-price">
+                        $112.45
+                        <span class="price-change positive">+23.8%</span>
+                    </div>
+                    <div class="token-stats">
+                        <div class="token-stat">
+                            <span class="token-stat-value">421</span>
+                            <div class="token-stat-label">Holders</div>
+                        </div>
+                        <div class="token-stat">
+                            <span class="token-stat-value">$18.7K</span>
+                            <div class="token-stat-label">24h Volume</div>
+                        </div>
+                        <div class="token-stat">
+                            <span class="token-stat-value">$1.12M</span>
+                            <div class="token-stat-label">Market Cap</div>
+                        </div>
+                    </div>
+                    <div class="token-actions">
+                        <button class="btn btn-buy">Kup</button>
+                        <button class="btn btn-sell">Sprzedaj</button>
+                    </div>
+                </div>
+
+                <div class="token-card fade-in">
+                    <div class="token-header">
+                        <div class="token-name">FISZ EMADE</div>
+                        <div class="token-symbol">$FISZ</div>
+                    </div>
+                    <div class="artist-info">
+                        <div class="artist-name">Fisz Emade Tworzywo</div>
+                        <div class="artist-genre">Alternative, Jazz Rap</div>
+                    </div>
+                    <div class="token-price live-price">
+                        $34.21
+                        <span class="price-change positive">+3.4%</span>
+                    </div>
+                    <div class="token-stats">
+                        <div class="token-stat">
+                            <span class="token-stat-value">143</span>
+                            <div class="token-stat-label">Holders</div>
+                        </div>
+                        <div class="token-stat">
+                            <span class="token-stat-value">$4.9K</span>
+                            <div class="token-stat-label">24h Volume</div>
+                        </div>
+                        <div class="token-stat">
+                            <span class="token-stat-value">$342K</span>
+                            <div class="token-stat-label">Market Cap</div>
+                        </div>
+                    </div>
+                    <div class="token-actions">
+                        <button class="btn btn-buy">Kup</button>
+                        <button class="btn btn-sell">Sprzedaj</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-section">
+                <h2 class="section-title">Twoje Portfolio</h2>
+                <div class="portfolio-value">
+                    <div class="portfolio-total">$12,847</div>
+                    <div class="portfolio-change">+$1,247 (+10.7%) w tym miesiącu</div>
+                </div>
+                <div class="chart-placeholder">
+                    <p style="font-size: 1.2rem; margin-bottom: 1rem;">📈 Wykres Portfolio</p>
+                    <p>Real-time tracking twojego portfolio z interaktywnymi wykresami</p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: rgba(255,255,255,0.6);">
+                        *W pełnej wersji: TradingView charts, alerts, analityka
+                    </p>
+                </div>
+            </div>
+
+            <div class="trading-panel">
+                <h2 class="section-title">Panel Handlowy</h2>
+                <div class="trading-tabs">
+                    <div class="trading-tab active">Spot Trading</div>
+                    <div class="trading-tab">Limit Orders</div>
+                    <div class="trading-tab">DCA Strategy</div>
+                </div>
+                <div class="chart-placeholder">
+                    <p style="font-size: 1.2rem; margin-bottom: 1rem;">⚡ Advanced Trading Interface</p>
+                    <p>Profesjonalne narzędzia handlowe z real-time data</p>
+                    <ul style="margin-top: 1rem; text-align: left; max-width: 400px; margin-left: auto; margin-right: auto;">
+                        <li>• Real-time order book</li>
+                        <li>• Price alerts i notifications</li>
+                        <li>• Technical indicators</li>
+                        <li>• Risk management tools</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2 class="section-title">Dlaczego Tokenizacja?</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="icon">💎</div>
+                    <h3>Democratyzacja Inwestycji</h3>
+                    <p>Każdy może inwestować w karierę artysty już od $10</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="icon">📈</div>
+                    <h3>Wzrost Wartości</h3>
+                    <p>Tokeny rosną wraz z popularnością i sukcesem artysty</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="icon">🎵</div>
+                    <h3>Revenue Sharing</h3>
+                    <p>Holders otrzymują część przychodów z streamingów i koncertów</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="icon">🤝</div>
+                    <h3>Fan Engagement</h3>
+                    <p>Specjalne przywileje i dostęp do ekskluzywnych treści</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="icon">⚡</div>
+                    <h3>Instant Trading</h3>
+                    <p>Natychmiastowy handel 24/7 bez pośredników</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="icon">🛡️</div>
+                    <h3>Transparentność</h3>
+                    <p>Wszystkie transakcje zapisane na blockchain</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="icon">🌍</div>
+                    <h3>Globalny Dostęp</h3>
+                    <p>Handluj z inwestorami z całego świata</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="icon">🎯</div>
+                    <h3>Smart Contracts</h3>
+                    <p>Automatyczne wypłaty i governance bezpośrednio w tokenie</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer" style="background: rgba(0,0,0,0.5); padding: 2rem 0; text-align: center; color: rgba(255,255,255,0.6);">
+        <div class="container">
+            <p>&copy; 2025 Hip-Hop Universe - Tokenizacja & Marketplace</p>
+            <p>Inwestuj mądrze, wspieraj kulturę 💰</p>
+        </div>
+    </footer>
+
+    <script>
+        // Real-time price updates simulation
+        function updatePrices() {
+            const prices = document.querySelectorAll('.token-price');
+            prices.forEach(price => {
+                const currentPrice = parseFloat(price.textContent.replace('$', ''));
+                const change = (Math.random() - 0.5) * 2; // Random change ±1
+                const newPrice = Math.max(0.01, currentPrice + change);
+                
+                const changeElement = price.querySelector('.price-change');
+                const changePercent = ((newPrice - currentPrice) / currentPrice * 100).toFixed(1);
+                
+                price.childNodes[0].textContent = `$${newPrice.toFixed(2)} `;
+                
+                if (changePercent > 0) {
+                    changeElement.textContent = `+${changePercent}%`;
+                    changeElement.className = 'price-change positive';
+                } else {
+                    changeElement.textContent = `${changePercent}%`;
+                    changeElement.className = 'price-change negative';
+                }
+            });
+        }
+
+        // Update prices every 3 seconds
+        setInterval(updatePrices, 3000);
+
+        // Trading tabs functionality
+        document.querySelectorAll('.trading-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.trading-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Token card interactions
+        document.querySelectorAll('.token-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const tokenName = this.querySelector('.token-name').textContent;
+                // In real app, this would open detailed trading view
+                console.log(`Opening trading view for ${tokenName}`);
+            });
+        });
+
+        // Buy/Sell button handlers
+        document.querySelectorAll('.btn-buy').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const tokenCard = this.closest('.token-card');
+                const tokenName = tokenCard.querySelector('.token-name').textContent;
+                alert(`Kupowanie tokenu ${tokenName}\n\nŁączenie z API...`);
+                if (window.interactiveFunctions) {
+                    window.interactiveFunctions.buyToken(tokenName);
+                }
+            });
+        });
+
+        document.querySelectorAll('.btn-sell').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const tokenCard = this.closest('.token-card');
+                const tokenName = tokenCard.querySelector('.token-name').textContent;
+                alert(`Sprzedawanie tokenu ${tokenName}\n\nŁączenie z API...`);
+                if (window.interactiveFunctions) {
+                    window.interactiveFunctions.sellToken(tokenName);
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add staggered animation delays
+            document.querySelectorAll('.token-card').forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+
+    <script src="assets/js/api-functions.js"></script>
+    <script>
+        // Initialize API for tokenization page
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                window.hipHopAPI = new HipHopAPI();
+                window.interactiveFunctions = new InteractiveFunctions(window.hipHopAPI);
+                console.log('🪙 Tokenization API Integration Active');
+                
+                // Update token prices with real data if available
+                const isHealthy = await window.hipHopAPI.checkHealth();
+                if (isHealthy) {
+                    console.log('💰 Real token prices available from API');
+                } else {
+                    console.log('⚠️ Using demo token prices');
+                }
+            } catch (error) {
+                console.error('❌ Tokenization API Integration Error:', error);
+            }
+        });
+    </script>
+</body>
+</html>

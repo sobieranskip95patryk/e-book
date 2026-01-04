@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="pl" class="h-full">
+<head>
+  <!-- =========================================================
+       MTA QUEST — TITLE / PORTAL PAGE (WebXR-ready)
+       Single-file build for fast preview + later modularization
+  ========================================================== -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#071018" />
+  <meta name="description" content="MTA Quest — realistyczne RP w Los Santos. System questów, ekonomia, frakcje, wydarzenia i społeczność. Wejdź do portalu." />
+
+  <title>MTA Quest — Twoja Nowa Przygoda RP</title>
+
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="MTA Quest — Twoja Nowa Przygoda RP" />
+  <meta property="og:description" content="Portal do świata RP: questy, ekonomia, frakcje, wydarzenia. Dołącz teraz." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.mtaquestwebsidex.com/" />
+  <!-- Podmień na realny obraz: /public/og.jpg -->
+  <meta property="og:image" content="https://placehold.co/1200x630/0b1220/38bdf8?text=MTA+Quest+Portal" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Preconnect fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200..900&display=swap" rel="stylesheet" />
+
+  <!-- PWA hook (opcjonalnie) -->
+  <!-- <link rel="manifest" href="/manifest.webmanifest"> -->
+
+  <!-- A-Frame (WebXR) -->
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
+  <style>
+    :root{
+      --bg0:#050913;
+      --bg1:#071018;
+      --panel:#0c1422cc;
+      --panel2:#0b1220e6;
+      --text:#e7eefb;
+      --muted:#9aa7bd;
+      --cyan:#38bdf8;
+      --cyan2:#63d5ff;
+      --violet:#a78bfa;
+      --line:#2a3a55;
+      --ok:#22c55e;
+      --warn:#f59e0b;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 30% 20%, #0b1a33 0%, var(--bg0) 55%, #02040b 100%);
+      overflow-x:hidden;
+    }
+
+    /* --- Background grid + noise --- */
+    .bg-grid{
+      position:fixed; inset:0;
+      background:
+        linear-gradient(to right, rgba(56,189,248,.08) 1px, transparent 1px) 0 0 / 64px 64px,
+        linear-gradient(to bottom, rgba(56,189,248,.06) 1px, transparent 1px) 0 0 / 64px 64px;
+      mask-image: radial-gradient(600px 480px at 50% 30%, black 40%, transparent 72%);
+      opacity:.6;
+      pointer-events:none;
+      z-index: 1;
+    }
+    .bg-noise{
+      position:fixed; inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+      opacity:.22;
+      pointer-events:none;
+      z-index: 2;
+    }
+
+    /* --- WebXR scene container --- */
+    .xr-layer{
+      position:fixed; inset:0;
+      z-index:0;
+    }
+    a-scene { height:100%; width:100%; }
+
+    /* --- Top bar --- */
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(to bottom, rgba(5,9,19,.92), rgba(5,9,19,.50));
+      border-bottom: 1px solid rgba(56,189,248,.18);
+    }
+    .nav{
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      text-decoration:none; color:var(--text);
+      font-weight: 900; letter-spacing:.08em;
+      text-transform: uppercase;
+    }
+
+    .brand-badge{
+      width: 38px; height: 38px; border-radius: 12px;
+      background: radial-gradient(circle at 30% 25%, rgba(56,189,248,.95), rgba(167,139,250,.45) 50%, rgba(5,9,19,0) 70%),
+                  linear-gradient(135deg, rgba(56,189,248,.22), rgba(167,139,250,.14));
+      border: 1px solid rgba(56,189,248,.28);
+      box-shadow: 0 0 28px rgba(56,189,248,.18);
+      position: relative;
+    }
+    .brand-badge:after{
+      content:"";
+      position:absolute; inset:8px;
+      border-radius: 10px;
+      border: 1px solid rgba(56,189,248,.35);
+      filter: drop-shadow(0 0 8px rgba(56,189,248,.18));
+    }
+
+    .nav-actions{
+      display:flex; align-items:center; gap:10px;
+    }
+
+    .btn{
+      appearance:none;
+      border:1px solid rgba(56,189,248,.22);
+      background: linear-gradient(180deg, rgba(56,189,248,.16), rgba(12,20,34,.45));
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 14px;
+      font-weight: 800;
+      letter-spacing:.02em;
+      cursor:pointer;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      box-shadow: 0 0 0 rgba(56,189,248,0);
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(56,189,248,.42);
+      box-shadow: 0 0 22px rgba(56,189,248,.12);
+    }
+
+    .btn-primary{
+      border-color: rgba(56,189,248,.55);
+      background: linear-gradient(135deg, rgba(56,189,248,.95), rgba(56,189,248,.35));
+      color:#04101a;
+      box-shadow: 0 0 28px rgba(56,189,248,.22);
+    }
+    .btn-primary:hover{
+      box-shadow: 0 0 42px rgba(56,189,248,.28);
+    }
+
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      border:1px solid rgba(56,189,248,.18);
+      background: rgba(12,20,34,.62);
+      padding: 8px 10px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 12px;
+    }
+    .dot{
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--ok);
+      box-shadow: 0 0 16px rgba(34,197,94,.35);
+    }
+
+    /* --- Hero layout --- */
+    main{
+      position: relative;
+      z-index: 10;
+    }
+    .hero{
+      min-height: calc(100vh - 66px);
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 34px 18px 28px;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 22px;
+      align-items: center;
+    }
+
+    @media (max-width: 980px){
+      .hero{ grid-template-columns: 1fr; padding-top: 26px; }
+    }
+
+    .h1{
+      font-size: clamp(34px, 4.4vw, 62px);
+      line-height: 1.03;
+      margin: 14px 0 14px;
+      font-weight: 950;
+      letter-spacing:-.02em;
+      text-shadow: 0 0 22px rgba(56,189,248,.12);
+    }
+
+    .neon{
+      color: var(--cyan);
+      text-shadow: 0 0 10px rgba(56,189,248,.45), 0 0 28px rgba(56,189,248,.18);
+    }
+
+    .sub{
+      color: #cdd7e6;
+      font-size: clamp(15px, 1.6vw, 20px);
+      line-height: 1.55;
+      max-width: 62ch;
+      margin: 0 0 18px;
+    }
+
+    .glitch{
+      position:relative;
+      display:inline-block;
+    }
+    .glitch::before, .glitch::after{
+      content: attr(data-text);
+      position:absolute;
+      left:0; top:0;
+      opacity:.65;
+      pointer-events:none;
+      mix-blend-mode: screen;
+    }
+    .glitch::before{
+      transform: translate(2px, -1px);
+      color: var(--violet);
+      filter: blur(.2px);
+      animation: g1 2.6s infinite linear;
+    }
+    .glitch::after{
+      transform: translate(-2px, 1px);
+      color: var(--cyan2);
+      filter: blur(.2px);
+      animation: g2 2.1s infinite linear;
+    }
+    @keyframes g1 { 0%,100%{clip-path: inset(0 0 92% 0)} 50%{clip-path: inset(58% 0 10% 0)} }
+    @keyframes g2 { 0%,100%{clip-path: inset(80% 0 0 0)} 50%{clip-path: inset(22% 0 50% 0)} }
+
+    .cta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      margin-top: 18px;
+      align-items:center;
+    }
+
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-weight: 800;
+      font-size: 12px;
+      color: #bfe9ff;
+      border: 1px solid rgba(56,189,248,.25);
+      background: rgba(5,9,19,.55);
+      padding: 8px 10px;
+      border-radius: 12px;
+    }
+
+    /* --- Right-side command panel --- */
+    .panel{
+      border: 1px solid rgba(56,189,248,.22);
+      background: linear-gradient(180deg, rgba(12,20,34,.72), rgba(6,10,18,.68));
+      border-radius: 22px;
+      box-shadow: 0 0 38px rgba(2,6,23,.55);
+      overflow:hidden;
+      position: relative;
+    }
+    .panel::before{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(800px 400px at 50% 0%, rgba(56,189,248,.10), transparent 60%);
+      pointer-events:none;
+    }
+    .panel-head{
+      padding: 16px 16px 12px;
+      display:flex; align-items:center; justify-content:space-between;
+      border-bottom: 1px solid rgba(56,189,248,.16);
+    }
+    .panel-title{
+      font-weight: 950;
+      letter-spacing:.08em;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: #cfeaff;
+      display:flex; align-items:center; gap:10px;
+    }
+    .chip{
+      font-size:12px;
+      font-weight:900;
+      padding:6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(56,189,248,.25);
+      background: rgba(5,9,19,.45);
+      color:#bfe9ff;
+    }
+    .panel-body{
+      padding: 14px 16px 16px;
+      display:grid;
+      gap: 12px;
+    }
+
+    .kv{
+      display:grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(56,189,248,.14);
+      background: rgba(11,18,32,.55);
+    }
+    .kv b{ font-weight: 950; }
+    .kv small{ color: var(--muted); display:block; margin-top:2px; line-height:1.35; }
+    .status{
+      display:flex; align-items:center; gap:10px;
+      justify-content:flex-end;
+      font-weight: 950;
+      color: #cfeaff;
+    }
+    .pulse{
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--ok);
+      box-shadow: 0 0 0 rgba(34,197,94,0);
+      animation: pulse 1.5s infinite ease-out;
+    }
+    @keyframes pulse{
+      0%{ box-shadow: 0 0 0 0 rgba(34,197,94,.35); }
+      100%{ box-shadow: 0 0 0 16px rgba(34,197,94,0); }
+    }
+
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      color:#bfe9ff;
+      opacity:.9;
+    }
+
+    /* --- Footer hint --- */
+    .footer-hint{
+      max-width:1180px;
+      margin: 0 auto;
+      padding: 0 18px 26px;
+      color: rgba(154,167,189,.86);
+      font-size: 12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    /* Mobile polish */
+    @media (max-width: 560px){
+      .nav{ padding: 12px 14px; }
+      .btn{ padding: 10px 11px; border-radius: 14px; }
+      .panel{ border-radius: 18px; }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      *{ animation: none !important; transition:none !important; }
+    }
+  </style>
+
+  <!-- JSON-LD (SEO) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"VideoGame",
+    "name":"MTA Quest",
+    "url":"https://www.mtaquestwebsidex.com/",
+    "description":"Realistyczny serwer RP w świecie MTA:SA z systemem questów, ekonomią i frakcjami.",
+    "genre":["Role-Play","Multiplayer"],
+    "inLanguage":"pl-PL"
+  }
+  </script>
+</head>
+
+<body>
+  <!-- WebXR / 3D background layer -->
+  <div class="xr-layer" aria-hidden="true">
+    <a-scene
+      embedded
+      vr-mode-ui="enabled: false"
+      renderer="antialias: true; colorManagement: true; physicallyCorrectLights: true;"
+      background="color: #050913"
+      webxr="optionalFeatures: local-floor, bounded-floor, hand-tracking; overlayElement: #uiOverlay"
+    >
+      <!-- Camera -->
+      <a-entity position="0 1.6 3.6">
+        <a-camera wasd-controls="enabled: false" look-controls="enabled: false"></a-camera>
+      </a-entity>
+
+      <!-- Lights -->
+      <a-entity light="type: ambient; intensity: 0.55; color: #9bdcff"></a-entity>
+      <a-entity light="type: point; intensity: 1.0; color: #38bdf8; distance: 25" position="0 3 4"></a-entity>
+      <a-entity light="type: point; intensity: 0.65; color: #a78bfa; distance: 25" position="2 1 2"></a-entity>
+
+      <!-- Starfield (particles-ish) -->
+      <a-entity id="stars"></a-entity>
+
+      <!-- Portal core -->
+      <a-entity id="portal" position="0 1.6 0" rotation="0 0 0">
+        <!-- Outer ring -->
+        <a-torus radius="1.15" radius-tubular="0.03" segments-tubular="160" segments-radial="22"
+                 material="color:#38bdf8; emissive:#38bdf8; emissiveIntensity:0.45; metalness:0.2; roughness:0.25; opacity:0.85; transparent:true"
+                 animation="property: rotation; to: 0 360 0; loop: true; dur: 16000; easing: linear">
+        </a-torus>
+
+        <!-- Inner ring -->
+        <a-torus radius="0.88" radius-tubular="0.02" segments-tubular="160" segments-radial="18"
+                 material="color:#a78bfa; emissive:#a78bfa; emissiveIntensity:0.35; metalness:0.2; roughness:0.28; opacity:0.7; transparent:true"
+                 animation="property: rotation; to: 0 -360 0; loop: true; dur: 14000; easing: linear">
+        </a-torus>
+
+        <!-- Portal plane -->
+        <a-circle radius="0.78" rotation="-90 0 0"
+                  material="shader: flat; color: #071018; opacity:0.75; transparent:true">
+        </a-circle>
+
+        <!-- Energy disc (pulsing) -->
+        <a-ring radius-inner="0.15" radius-outer="0.76" rotation="-90 0 0"
+                material="shader: flat; color:#38bdf8; opacity:0.12; transparent:true"
+                animation="property: material.opacity; dir: alternate; to: 0.22; dur: 1800; loop: true; easing: easeInOutSine">
+        </a-ring>
+      </a-entity>
+
+      <!-- Slight fog for depth -->
+      <a-entity fog="type: exponential; color: #050913; density: 0.06"></a-entity>
+    </a-scene>
+  </div>
+
+  <!-- UI overlay for WebXR overlayElement -->
+  <div id="uiOverlay">
+    <div class="bg-grid"></div>
+    <div class="bg-noise"></div>
+
+    <header>
+      <div class="nav">
+        <a class="brand" href="#" aria-label="MTA Quest">
+          <span class="brand-badge" aria-hidden="true"></span>
+          <span>MTA QUEST</span>
+        </a>
+
+        <div class="nav-actions">
+          <span class="pill" title="Status serwera (placeholder)">
+            <span class="dot" aria-hidden="true"></span>
+            online · <span class="mono">mtaquest.com</span>
+          </span>
+
+          <button class="btn" id="audioBtn" type="button" aria-label="Włącz/wyłącz dźwięk">
+            Audio
+          </button>
+
+          <button class="btn" id="vrBtn" type="button" aria-label="Wejdź w tryb VR (WebXR)">
+            VR
+          </button>
+
+          <a class="btn btn-primary" href="#join" aria-label="Dołącz do serwera">
+            DOŁĄCZ
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <!-- Left: narrative + CTA -->
+        <div>
+          <span class="pill">
+            Portal RP · Quest Engine · Społeczność
+            <span class="mono">|</span>
+            Matryca <span class="mono">&lt;369963&gt;</span>
+          </span>
+
+          <h1 class="h1">
+            <span class="neon glitch" data-text="MTA Quest">MTA Quest</span>
+            <br />
+            Twoja Nowa Przygoda RP
+          </h1>
+
+          <p class="sub">
+            Wejdź do świata, w którym Role-Play ma znaczenie: <b>system questów</b>, <b>realistyczna ekonomia</b>,
+            frakcje, wydarzenia i kultura społeczności. To jest <b>portal</b> — nie tylko serwer.
+          </p>
+
+          <div class="cta-row" id="join">
+            <a class="btn btn-primary" href="javascript:void(0)" id="copyIpBtn" aria-label="Skopiuj IP serwera">
+              Skopiuj IP: mtaquest.com
+            </a>
+            <a class="btn" href="#" aria-label="Discord (podmień link)">
+              Discord
+            </a>
+            <a class="btn" href="#" aria-label="Forum (podmień link)">
+              Forum
+            </a>
+            <span class="kbd">Otwarta Beta: 20:00 · 24/7</span>
+          </div>
+
+          <div class="cta-row" style="margin-top:12px">
+            <span class="pill" title="Szybki onboarding (placeholder)">
+              1) Zainstaluj MTA:SA · 2) Wejdź na IP · 3) Discord → pomoc/role
+            </span>
+          </div>
+        </div>
+
+        <!-- Right: command panel -->
+        <aside class="panel" aria-label="Panel statusu i modułów">
+          <div class="panel-head">
+            <div class="panel-title">
+              <span aria-hidden="true">◈</span> COMMAND CENTER
+            </div>
+            <span class="chip">v0.1 TITLE</span>
+          </div>
+
+          <div class="panel-body">
+            <div class="kv">
+              <div>
+                <b>System Questów</b>
+                <small>Fabularne zadania jako kręgosłup progresu i historii Los Santos.</small>
+              </div>
+              <div class="status">
+                <span class="pulse" aria-hidden="true"></span> ACTIVE
+              </div>
+            </div>
+
+            <div class="kv">
+              <div>
+                <b>Realistyczne RP</b>
+                <small>Ekonomia, praca, frakcje rządowe i przestępcze, konsekwencje działań.</small>
+              </div>
+              <div class="status">
+                <span style="width:10px;height:10px;border-radius:50%;background:var(--warn);box-shadow:0 0 16px rgba(245,158,11,.25)" aria-hidden="true"></span>
+                CALIBRATE
+              </div>
+            </div>
+
+            <div class="kv">
+              <div>
+                <b>Społeczność</b>
+                <small>Discord + forum + eventy. Tu budujemy klimat, nie tylko serwer.</small>
+              </div>
+              <div class="status">
+                <span class="pulse" aria-hidden="true"></span> 24/7
+              </div>
+            </div>
+
+            <div class="kv">
+              <div>
+                <b>Tryb XR</b>
+                <small>Ta strona jest gotowa pod wejście do VR (okulary) i później AR.</small>
+              </div>
+              <div class="status">
+                <span class="mono" id="xrState">READY</span>
+              </div>
+            </div>
+
+            <div class="kv">
+              <div>
+                <b>mtaquestwebsidex.com</b>
+                <small>To Twoja brama. Kolejny krok: trailer + galeria + status live.</small>
+              </div>
+              <div class="status">
+                <span class="mono">X</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <div class="footer-hint">
+        <div>
+          Tip: VR działa najlepiej na <span class="mono">https</span> lub <span class="mono">localhost</span>.
+          Do symulacji użyj rozszerzenia <span class="mono">WebXR Emulator</span> w Chrome.
+        </div>
+        <div class="mono">
+          © 2025 MTA QUEST · www.mtaquestwebsidex.com
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // =========================================================
+    // Stars generator (lightweight) for A-Frame
+    // =========================================================
+    (function buildStars(){
+      const root = document.querySelector('#stars');
+      if (!root) return;
+
+      const COUNT = 900;
+      const R = 26;
+
+      for (let i=0;i<COUNT;i++){
+        const s = document.createElement('a-sphere');
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(2 * Math.random() - 1);
+        const r = R * (0.35 + Math.random() * 0.65);
+
+        const x = r * Math.sin(phi) * Math.cos(theta);
+        const y = r * Math.cos(phi);
+        const z = r * Math.sin(phi) * Math.sin(theta) - 8;
+
+        const size = 0.006 + Math.random() * 0.015;
+        s.setAttribute('radius', size);
+        s.setAttribute('position', `${x.toFixed(3)} ${y.toFixed(3)} ${z.toFixed(3)}`);
+        s.setAttribute('material', `shader: flat; color: #bfe9ff; opacity: ${0.22 + Math.random()*0.55}; transparent: true`);
+        root.appendChild(s);
+      }
+    })();
+
+    // =========================================================
+    // Copy IP button
+    // =========================================================
+    const ip = "mtaquest.com";
+    const copyBtn = document.getElementById("copyIpBtn");
+    if (copyBtn){
+      copyBtn.addEventListener("click", async () => {
+        try{
+          await navigator.clipboard.writeText(ip);
+          copyBtn.textContent = "Skopiowano: " + ip;
+          setTimeout(()=> copyBtn.textContent = "Skopiuj IP: " + ip, 1600);
+        }catch(e){
+          alert("Nie mogę skopiować automatycznie. Skopiuj ręcznie: " + ip);
+        }
+      });
+    }
+
+    // =========================================================
+    // Audio toggle (placeholder - you can attach real ambience later)
+    // =========================================================
+    let audioOn = false;
+    let ctx, osc, gain;
+
+    function startAudio(){
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      osc = ctx.createOscillator();
+      gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.value = 48;         // low hum
+      gain.gain.value = 0.00;
+      osc.connect(gain).connect(ctx.destination);
+      osc.start();
+      // fade in
+      let v = 0;
+      const t = setInterval(()=>{
+        v += 0.008;
+        gain.gain.value = Math.min(v, 0.03);
+        if (v >= 0.03) clearInterval(t);
+      }, 30);
+    }
+    function stopAudio(){
+      try{
+        if (gain) gain.gain.value = 0.0;
+        if (osc) osc.stop();
+        if (ctx) ctx.close();
+      }catch(e){}
+      ctx = osc = gain = null;
+    }
+
+    const audioBtn = document.getElementById("audioBtn");
+    if (audioBtn){
+      audioBtn.addEventListener("click", () => {
+        audioOn = !audioOn;
+        if (audioOn){
+          startAudio();
+          audioBtn.textContent = "Audio: ON";
+        }else{
+          stopAudio();
+          audioBtn.textContent = "Audio";
+        }
+      });
+    }
+
+    // =========================================================
+    // WebXR / VR button
+    // A-Frame handles immersive-vr when entering VR mode.
+    // =========================================================
+    const vrBtn = document.getElementById("vrBtn");
+    const xrState = document.getElementById("xrState");
+    const scene = document.querySelector("a-scene");
+
+    async function xrSupported(){
+      if (!navigator.xr) return false;
+      try{
+        return await navigator.xr.isSessionSupported("immersive-vr");
+      }catch(e){
+        return false;
+      }
+    }
+
+    (async ()=>{
+      const ok = await xrSupported();
+      xrState.textContent = ok ? "VR SUPPORTED" : "VR LIMITED";
+      if (!ok) vrBtn.style.opacity = 0.65;
+    })();
+
+    if (vrBtn && scene){
+      vrBtn.addEventListener("click", async () => {
+        const ok = await xrSupported();
+        if (!ok){
+          alert("WebXR VR nie jest dostępny w tej przeglądarce/trybie. Spróbuj Chrome na Android/Quest lub HTTPS/localhost.");
+          return;
+        }
+        // A-Frame: enterVR
+        scene.enterVR();
+      });
+    }
+  </script>
+
+  <!--
+    SYMULATOR / PODGLĄD:
+    1) Lokalnie: python -m http.server 8080  (lub dowolny serwer)
+    2) Chrome: zainstaluj rozszerzenie "WebXR Emulator" (desktop) → symuluj VR.
+    3) Na Quest: odpal stronę po HTTPS albo localhost przez tunneling.
+    4) AR później: navigator.xr.isSessionSupported('immersive-ar') + anchor hit-test (kolejny etap).
+  -->
+</body>
+</html>
