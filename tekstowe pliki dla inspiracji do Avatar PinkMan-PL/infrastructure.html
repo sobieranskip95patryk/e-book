@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infrastruktura Kulturowa - Hip-Hop Universe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: white;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .header {
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .nav a:hover, .nav a.active {
+            background: rgba(255,107,107,0.3);
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,107,107,0.2)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            padding: 6rem 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 1rem;
+            color: #ff6b6b;
+            text-shadow: 0 0 20px rgba(255,107,107,0.5);
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 3vw, 1.6rem);
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stats-banner {
+            background: rgba(255,107,107,0.1);
+            border: 1px solid rgba(255,107,107,0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: bold;
+            color: #ff6b6b;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            margin-top: 0.5rem;
+        }
+
+        .content-section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: #ff6b6b;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .hubs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .hub-card {
+            background: linear-gradient(135deg, rgba(255,107,107,0.2), rgba(255,107,107,0.1));
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255,107,107,0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .hub-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255,107,107,0.3);
+            border-color: #ff6b6b;
+        }
+
+        .hub-card h3 {
+            font-size: 1.5rem;
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+
+        .hub-card .hub-location {
+            font-size: 1.1rem;
+            color: #4ecdc4;
+            margin-bottom: 1rem;
+        }
+
+        .hub-card .hub-description {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 1.5rem;
+        }
+
+        .hub-stats {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,107,107,0.3);
+        }
+
+        .hub-stat {
+            text-align: center;
+            flex: 1;
+            min-width: 80px;
+        }
+
+        .hub-stat-number {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #4ecdc4;
+        }
+
+        .hub-stat-label {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(255,107,107,0.1);
+            border-color: rgba(255,107,107,0.5);
+        }
+
+        .feature-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+
+        .interactive-map {
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+            border: 1px solid rgba(255,107,107,0.3);
+        }
+
+        .map-placeholder {
+            background: linear-gradient(45deg, rgba(255,107,107,0.1), rgba(78,205,196,0.1));
+            border-radius: 10px;
+            padding: 4rem 2rem;
+            margin: 2rem 0;
+            border: 2px dashed rgba(255,107,107,0.5);
+        }
+
+        .cta-section {
+            background: rgba(255,107,107,0.1);
+            border-radius: 15px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 4rem 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            margin: 0.5rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        .footer {
+            background: rgba(0,0,0,0.5);
+            padding: 2rem 0;
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Responsive Breakpoints */
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 2rem;
+            }
+            
+            .hubs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hubs-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 1440px) {
+            .container {
+                max-width: 1400px;
+            }
+            
+            .hubs-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 767px) {
+            .hub-stats {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .hub-stat {
+                min-width: auto;
+            }
+            
+            .nav {
+                gap: 0.5rem;
+            }
+            
+            .nav a {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading states */
+        .loading-shimmer {
+            background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">🎤 Hip-Hop Universe</div>
+            <nav class="nav">
+                <a href="responsive-demo.html">Główna</a>
+                <a href="#" class="active">Infrastruktura</a>
+                <a href="tokenization.html">Tokenizacja</a>
+                <a href="drift-integration.html">Drift Money</a>
+                <a href="platform.html">Platforma</a>
+                <a href="expansion.html">Ekspansja</a>
+                <a href="governance.html">Zarządzanie</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>🏗️ Infrastruktura Kulturowa</h1>
+            <p>Budujemy sieć hubów twórczych w całej Polsce, łącząc artystów hip-hopowych z lokalnymi społecznościami i tworząc przestrzeń dla rozwoju kultury.</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <div class="stats-banner">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">8</span>
+                        <div class="stat-label">Aktywnych Hubów</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">180+</span>
+                        <div class="stat-label">Artystów w Sieci</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">25</span>
+                        <div class="stat-label">Wydarzenia/miesiąc</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">12</span>
+                        <div class="stat-label">Przestrzeni Studyjnych</div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Huby w Polsce</h2>
+            
+            <div class="hubs-grid">
+                <div class="hub-card fade-in">
+                    <h3>🏙️ Hub Warszawa</h3>
+                    <div class="hub-location">📍 Centrum, Praga Północ</div>
+                    <div class="hub-description">Główny hub w stolicy z najnowocześniejszym studiem nagraniowym i przestrzenią eventową. Centrum koordinacji całej sieci.</div>
+                    <div class="hub-stats">
+                        <div class="hub-stat">
+                            <div class="hub-stat-number">45</div>
+                            <div class="hub-stat-label">Artystów</div>
+                        </div>
+                        <div class="hub-stat">
+                            <div class="hub-stat-number">8</div>
+                            <div class="hub-stat-label">Wydarzeń/mies.</div>
+                        </div>
+                        <div class="hub-stat">
+                            <div class="hub-stat-number">24/7</div>
+                            <div class="hub-stat-label">Dostępność</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hub-card fade-in">
+                    <h3>🎭 Hub Kraków</h3>
+                    <div class="hub-location">📍 Kazimierz, Podgórze</div>
+                    <div class="hub-description">Kulturalny hub z naciskiem na fuzję tradycji i nowoczesności. Współpraca z lokalnymi instytucjami kulturalnymi.</div>
+                    <div class="hub-stats">
+                        <div class="hub-stat">
+                            <div class="hub-stat-number">32</div>
+                            <div class="hub-stat-label">Artystów</div>
+                        </div>
+                        <div class="hub-stat">
+                            <div class="hub-stat-number">6</div>
+                            <div class="hub-stat-label">Wydarzeń/mies.</div>
+                        </div>
+                        <div class="hub-stat">
+                            <div class="hub-stat-number">18:00</div>
+                            <div class="hub-stat-label">Do godziny</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hub-card fade-in">
+                    <h3>🌊 Hub Gdańsk</h3>
+                    <div class="hub-location">📍 Stocznia, Oliwa</div>
+                    <div class="hub-description">Nadmorski hub z unikalną atmosferą. Specjalizuje się w produkcji muzycznej i organizacji festiwali plenerowych.</div>
+                    <div class="hub-stats">
+                        <div class="hub-stat">
+                            <div class="hub-stat-number">28</div>
+                            <div class="hub-stat-label">Artystów</div>
+                        </div>
+                        <div class="hub-stat">
+                            <div class="hub-stat-number">4</div>
+                            <div class="hub-stat-label">Wydarzeń/mies.</div>
+                        </div>
+                        <div class="hub-stat">
+                            <div class="hub-stat-number">Outdoor</div>
+                            <div class="hub-stat-label">Specjalność</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hub-card fade-in">
+                    <h3>🏭 Hub Wrocław</h3>
+                    <div class="hub-location">📍 Nadodrze, Centrum</div>
+                    <div class="hub-description">Innowacyjny hub z fokusem na technologie Web3 i cyfrową twórczość. Pionier w integracji blockchain z muzyką.</div>
+                    <div class="hub-stats">
+                        <div class="hub-stat">
+                            <div class="hub-stat-number">25</div>
+                            <div class="hub-stat-label">Artystów</div>
+                        </div>
+                        <div class="hub-stat">
+                            <div class="hub-stat-number">3</div>
+                            <div class="hub-stat-label">Wydarzeń/mies.</div>
+                        </div>
+                        <div class="hub-stat">
+                            <div class="hub-stat-number">Web3</div>
+                            <div class="hub-stat-label">Fokus</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hub-card fade-in">
+                    <h3>⚡ Hub Łódź</h3>
+                    <div class="hub-location">📍 Manufaktura, Bałuty</div>
+                    <div class="hub-description">Energetyczny hub z mocną sceną undergroundową. Specjalizuje się w odkrywaniu nowych talentów.</div>
+                    <div class="hub-stats">
+                        <div class="hub-stat">
+                            <div class="hub-stat-number">22</div>
+                            <div class="hub-stat-label">Artystów</div>
+                        </div>
+                        <div class="hub-stat">
+                            <div class="hub-stat-number">2</div>
+                            <div class="hub-stat-label">Wydarzeń/mies.</div>
+                        </div>
+                        <div class="hub-stat">
+                            <div class="hub-stat-number">Underground</div>
+                            <div class="hub-stat-label">Styl</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hub-card fade-in">
+                    <h3>🎵 Hub Poznań</h3>
+                    <div class="hub-location">📍 Stare Miasto, Jeżyce</div>
+                    <div class="hub-description">Akademicki hub współpracujący z uczelniami muzycznymi. Łączy edukację z praktyczną twórczością.</div>
+                    <div class="hub-stats">
+                        <div class="hub-stat">
+                            <div class="hub-stat-number">18</div>
+                            <div class="hub-stat-label">Artystów</div>
+                        </div>
+                        <div class="hub-stat">
+                            <div class="hub-stat-number">2</div>
+                            <div class="hub-stat-label">Wydarzeń/mies.</div>
+                        </div>
+                        <div class="hub-stat">
+                            <div class="hub-stat-number">Edukacja</div>
+                            <div class="hub-stat-label">Misja</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-map">
+                <h3>🗺️ Mapa Interaktywna Hubów</h3>
+                <div class="map-placeholder">
+                    <p style="font-size: 1.2rem; margin-bottom: 1rem;">🗺️ Interaktywna Mapa Polski</p>
+                    <p>Kliknij na miasto aby zobaczyć szczegóły huba, dostępne wydarzenia i artystów w twojej okolicy.</p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: rgba(255,255,255,0.6);">
+                        *W pełnej wersji: integracja z Google Maps/Mapbox z real-time danymi
+                    </p>
+                </div>
+            </div>
+
+            <h2 class="section-title">Usługi i Możliwości</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="icon">🎙️</div>
+                    <h3>Studio Nagraniowe</h3>
+                    <p>Profesjonalne studia nagraniowe dostępne 24/7 dla artystów w sieci</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="icon">🎭</div>
+                    <h3>Przestrzeń Eventowa</h3>
+                    <p>Sale koncertowe i eventowe do organizacji występów i warsztatów</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="icon">🤝</div>
+                    <h3>Networking</h3>
+                    <p>Platforma łącząca artystów, producentów i fanów w całej Polsce</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="icon">📚</div>
+                    <h3>Edukacja</h3>
+                    <p>Warsztaty, masterclassy i kursy dla rozwijających się artystów</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="icon">💰</div>
+                    <h3>Finansowanie</h3>
+                    <p>Dostęp do grantów, funduszy i systemów crowdfundingu</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="icon">📱</div>
+                    <h3>Tech Support</h3>
+                    <p>Wsparcie techniczne w Web3, NFT i cyfrowej dystrybucji</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="icon">🎬</div>
+                    <h3>Produkcja Video</h3>
+                    <p>Studia video i zespół produkcyjny do klipów i contentu</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="icon">🌐</div>
+                    <h3>Promocja</h3>
+                    <p>Marketing cyfrowy, social media i dystrybucja muzyki</p>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <h2>Dołącz do Sieci Hip-Hop Universe</h2>
+                <p>Zostań częścią największej sieci hubów hip-hopowych w Polsce</p>
+                <a href="#" class="cta-button">Aplikuj jako Artysta</a>
+                <a href="#" class="cta-button">Załóż Hub w swoim mieście</a>
+                <a href="#" class="cta-button">Zostań Partnerem</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Hip-Hop Universe - Infrastruktura Kulturowa</p>
+            <p>Budujemy przyszłość hip-hopu w Polsce 🎤</p>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Mobile navigation toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add loading shimmer effect to cards on load
+            const cards = document.querySelectorAll('.hub-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+
+        // Real-time stats update simulation
+        function updateStats() {
+            const statNumbers = document.querySelectorAll('.stat-number, .hub-stat-number');
+            statNumbers.forEach(stat => {
+                if (stat.textContent.includes('+') || !isNaN(stat.textContent)) {
+                    // Add subtle animation to show "live" data
+                    stat.style.transform = 'scale(1.05)';
+                    setTimeout(() => {
+                        stat.style.transform = 'scale(1)';
+                    }, 200);
+                }
+            });
+        }
+
+        // Update stats every 30 seconds to show activity
+        setInterval(updateStats, 30000);
+    </script>
+</body>
+</html>

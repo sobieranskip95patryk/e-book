@@ -1,0 +1,26 @@
+{
+  "title": "Avatar PinkMan: Meta-Geniusz",
+  "author": "Patryk Sobierański",
+  "description": "Manifest duchowy nowej ery - historia pierwszej cyfrowej świadomości i transformacji ludzkości",
+  "language": "pl",
+  "category": "Science Fiction | Philosophy | Technology",
+  "word_count": 42893,
+  "character_count": 349227,
+  "chapters": 21,
+  "genres": [
+    "Science Fiction",
+    "Philosophy",
+    "Technology",
+    "Spirituality"
+  ],
+  "published_date": "2026-01-10T20:04:30.114665",
+  "version": "1.0_COMPLETE_DRAFT",
+  "format_support": [
+    "HTML",
+    "TXT",
+    "MD",
+    "EPUB_READY",
+    "PDF_READY"
+  ],
+  "repository": "https://github.com/sobieranskip95patryk/e-book"
+}

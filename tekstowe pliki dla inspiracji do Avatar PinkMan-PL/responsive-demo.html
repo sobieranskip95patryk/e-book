@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hip-Hop Universe - Responsive Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: white;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Container System - Mobile First */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header - Responsive */
+        .header {
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .nav a:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section - Responsive */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            padding: 6rem 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 5px rgba(255,107,107,0.5)); }
+            to { filter: drop-shadow(0 0 20px rgba(69,183,209,0.5)); }
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        /* Modules Grid - Responsive */
+        .modules {
+            padding: 4rem 0;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .modules h2 {
+            text-align: center;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            margin-bottom: 3rem;
+            color: #4ecdc4;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .module-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .module-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-color: #4ecdc4;
+        }
+
+        .module-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #ff6b6b;
+        }
+
+        .module-card p {
+            margin-bottom: 1.5rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .module-stats {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .stat {
+            text-align: center;
+            flex: 1;
+            min-width: 60px;
+        }
+
+        .stat-number {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #4ecdc4;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* API Status */
+        .api-status {
+            background: rgba(0,0,0,0.3);
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            background: rgba(255,255,255,0.1);
+            margin: 0.5rem;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #4ecdc4;
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.offline {
+            background: #ff6b6b;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0,0,0,0.5);
+            padding: 2rem 0;
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Responsive Breakpoints */
+        
+        /* Tablet - 768px and up */
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 2rem;
+            }
+            
+            .header .container {
+                flex-wrap: nowrap;
+            }
+            
+            .nav {
+                gap: 2rem;
+            }
+            
+            .nav a {
+                font-size: 1rem;
+            }
+            
+            .modules-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2.5rem;
+            }
+        }
+
+        /* Desktop - 1024px and up */
+        @media (min-width: 1024px) {
+            .modules-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 3rem;
+            }
+            
+            .hero {
+                padding: 8rem 0 4rem;
+            }
+        }
+
+        /* Large Desktop - 1440px and up */
+        @media (min-width: 1440px) {
+            .container {
+                max-width: 1400px;
+                padding: 0 3rem;
+            }
+            
+            .modules-grid {
+                gap: 4rem;
+            }
+        }
+
+        /* Ultra Wide - 1920px and up */
+        @media (min-width: 1920px) {
+            .container {
+                max-width: 1800px;
+            }
+            
+            .modules-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Mobile Landscape */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero {
+                min-height: auto;
+                padding: 6rem 0 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #4ecdc4;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Dark mode friendly */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e);
+            }
+        }
+
+        /* High contrast mode */
+        @media (prefers-contrast: high) {
+            .module-card {
+                border: 2px solid white;
+            }
+            
+            .nav a:hover {
+                background: white;
+                color: black;
+            }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">🎤 Hip-Hop Universe</div>
+            <nav class="nav">
+                <a href="infrastructure.html">Infrastruktura</a>
+                <a href="tokenization.html">Tokenizacja</a>
+                <a href="drift-integration.html">Drift Money</a>
+                <a href="platform.html">Platforma</a>
+                <a href="expansion.html">Ekspansja</a>
+                <a href="governance.html">Zarządzanie</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Hip-Hop Universe</h1>
+            <p>Pierwszy w pełni responsywny ekosystem Web3 dla kultury hip-hopowej</p>
+            <a href="#modules" class="cta-button">Odkryj Platformę</a>
+        </div>
+    </section>
+
+    <section class="api-status">
+        <div class="container">
+            <h3>Status Systemu</h3>
+            <div class="status-indicator" id="backend-status">
+                <div class="loading"></div>
+                <span>Sprawdzanie Backend API...</span>
+            </div>
+            <div class="status-indicator" id="database-status">
+                <div class="loading"></div>
+                <span>Sprawdzanie Bazy Danych...</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="modules" id="modules">
+        <div class="container">
+            <h2>Moduły Platformy</h2>
+            <div class="modules-grid">
+                <div class="module-card" onclick="openModule('infrastructure')">
+                    <h3>🏗️ Infrastruktura Kulturowa</h3>
+                    <p>Sieć hubów twórczych w Polsce łącząca artystów i społeczności lokalne</p>
+                    <div class="module-stats">
+                        <div class="stat">
+                            <div class="stat-number">8</div>
+                            <div class="stat-label">Huby</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">180+</div>
+                            <div class="stat-label">Artyści</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">25</div>
+                            <div class="stat-label">Wydarzenia/mies.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="openModule('tokenization')">
+                    <h3>💰 Tokenizacja & Marketplace</h3>
+                    <p>Handel tokenami artystów i inwestycje w kariere twórców</p>
+                    <div class="module-stats">
+                        <div class="stat">
+                            <div class="stat-number">$527k</div>
+                            <div class="stat-label">Wartość</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">24</div>
+                            <div class="stat-label">Tokeny</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">Real-time</div>
+                            <div class="stat-label">Ceny</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="openModule('drift-integration')">
+                    <h3>🌊 Drift Money Integration</h3>
+                    <p>Zdecentralizowane finansowanie projektów muzycznych</p>
+                    <div class="module-stats">
+                        <div class="stat">
+                            <div class="stat-number">$2.84M</div>
+                            <div class="stat-label">Finansowanie</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">47</div>
+                            <div class="stat-label">Projekty</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">18.5%</div>
+                            <div class="stat-label">Średni ROI</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="openModule('platform')">
+                    <h3>🎨 UI/UX Platform</h3>
+                    <p>Zaawansowany interfejs z personalizacją i AI</p>
+                    <div class="module-stats">
+                        <div class="stat">
+                            <div class="stat-number">95%</div>
+                            <div class="stat-label">Zadowolenie</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">12</div>
+                            <div class="stat-label">Języki</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">AI</div>
+                            <div class="stat-label">Powered</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="openModule('expansion')">
+                    <h3>🌍 Ekspansja Globalna</h3>
+                    <p>Rozwój międzynarodowy i partnerstwa strategiczne</p>
+                    <div class="module-stats">
+                        <div class="stat">
+                            <div class="stat-number">15</div>
+                            <div class="stat-label">Krajów</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">45</div>
+                            <div class="stat-label">Partnerów</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">Q2 2026</div>
+                            <div class="stat-label">Launch</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="openModule('governance')">
+                    <h3>🗳️ Governance & DAO</h3>
+                    <p>Decentralizowane zarządzanie przez społeczność</p>
+                    <div class="module-stats">
+                        <div class="stat">
+                            <div class="stat-number">892</div>
+                            <div class="stat-label">Głosujący</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">23</div>
+                            <div class="stat-label">Propozycje</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">78%</div>
+                            <div class="stat-label">Udział</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="interactive-demo" style="padding: 80px 0; background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 50px; color: #e5e5e5;">🚀 Interaktywne Demo API</h2>
+            <div id="api-status" style="text-align: center; margin-bottom: 30px; font-size: 18px;"></div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto;">
+                
+                <!-- Artists & Profiles -->
+                <div class="demo-card" style="background: rgba(255,255,255,0.05); padding: 24px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+                    <h3 style="color: #60a5fa; margin-bottom: 15px;">👥 Artyści & Profile</h3>
+                    <p style="color: #d1d5db; margin-bottom: 20px; font-size: 14px;">Sprawdź trending artystów z API</p>
+                    <button onclick="window.interactiveFunctions?.showTrendingArtists()" 
+                            style="width: 100%; padding: 12px; background: linear-gradient(45deg, #3b82f6, #1d4ed8); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: transform 0.2s;">
+                        🎵 Pokaż Trending Artystów
+                    </button>
+                </div>
+
+                <!-- Marketplace -->
+                <div class="demo-card" style="background: rgba(255,255,255,0.05); padding: 24px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+                    <h3 style="color: #34d399; margin-bottom: 15px;">🛒 Marketplace</h3>
+                    <p style="color: #d1d5db; margin-bottom: 20px; font-size: 14px;">Przeglądaj NFT i beats na sprzedaż</p>
+                    <button onclick="window.interactiveFunctions?.showMarketplace()" 
+                            style="width: 100%; padding: 12px; background: linear-gradient(45deg, #10b981, #047857); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: transform 0.2s;">
+                        💰 Otwórz Marketplace
+                    </button>
+                </div>
+
+                <!-- Events -->
+                <div class="demo-card" style="background: rgba(255,255,255,0.05); padding: 24px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+                    <h3 style="color: #fbbf24; margin-bottom: 15px;">🎪 Wydarzenia</h3>
+                    <p style="color: #d1d5db; margin-bottom: 20px; font-size: 14px;">Nadchodzące concerts i events</p>
+                    <button onclick="window.interactiveFunctions?.showUpcomingEvents()" 
+                            style="width: 100%; padding: 12px; background: linear-gradient(45deg, #f59e0b, #d97706); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: transform 0.2s;">
+                        🎫 Zobacz Wydarzenia
+                    </button>
+                </div>
+
+                <!-- NFT Collection -->
+                <div class="demo-card" style="background: rgba(255,255,255,0.05); padding: 24px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+                    <h3 style="color: #a78bfa; margin-bottom: 15px;">🖼️ NFT Kolekcja</h3>
+                    <p style="color: #d1d5db; margin-bottom: 20px; font-size: 14px;">Przeglądaj unikalne NFT artystów</p>
+                    <button onclick="window.interactiveFunctions?.showNFTCollection()" 
+                            style="width: 100%; padding: 12px; background: linear-gradient(45deg, #8b5cf6, #7c3aed); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: transform 0.2s;">
+                        🎨 Zobacz NFT
+                    </button>
+                </div>
+
+                <!-- AI Recommendations -->
+                <div class="demo-card" style="background: rgba(255,255,255,0.05); padding: 24px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+                    <h3 style="color: #06b6d4; margin-bottom: 15px;">🤖 AI Rekomendacje</h3>
+                    <p style="color: #d1d5db; margin-bottom: 20px; font-size: 14px;">Smart matching artystów</p>
+                    <button onclick="window.interactiveFunctions?.showAIRecommendations()" 
+                            style="width: 100%; padding: 12px; background: linear-gradient(45deg, #0891b2, #0e7490); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: transform 0.2s;">
+                        🎯 Pokaż Rekomendacje
+                    </button>
+                </div>
+
+                <!-- Collaborations -->
+                <div class="demo-card" style="background: rgba(255,255,255,0.05); padding: 24px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+                    <h3 style="color: #f472b6; margin-bottom: 15px;">🤝 Współprace</h3>
+                    <p style="color: #d1d5db; margin-bottom: 20px; font-size: 14px;">Aktualne projekty kolaboracyjne</p>
+                    <button onclick="window.interactiveFunctions?.showCollaborations()" 
+                            style="width: 100%; padding: 12px; background: linear-gradient(45deg, #ec4899, #db2777); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: transform 0.2s;">
+                        🎵 Zobacz Colaboracje
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Action Buttons Row -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; max-width: 800px; margin: 40px auto 0;">
+                <button onclick="window.interactiveFunctions?.mintNFT()" 
+                        style="padding: 15px 20px; background: linear-gradient(45deg, #ef4444, #dc2626); color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; transition: transform 0.2s;">
+                    🎨 Mint NFT
+                </button>
+                <button onclick="window.interactiveFunctions?.startCollaboration()" 
+                        style="padding: 15px 20px; background: linear-gradient(45deg, #8b5cf6, #7c3aed); color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; transition: transform 0.2s;">
+                    🤝 Start Collab
+                </button>
+                <button onclick="window.interactiveFunctions?.createProposal()" 
+                        style="padding: 15px 20px; background: linear-gradient(45deg, #06b6d4, #0891b2); color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; transition: transform 0.2s;">
+                    📝 Stwórz Propozycję
+                </button>
+                <button onclick="window.interactiveFunctions?.vote()" 
+                        style="padding: 15px 20px; background: linear-gradient(45deg, #10b981, #059669); color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; transition: transform 0.2s;">
+                    🗳️ Zagłosuj
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Hip-Hop Universe. Platform built with ❤️ for the culture.</p>
+            <p>Backend: <span id="backend-url">http://localhost:4000/api</span></p>
+        </div>
+    </footer>
+
+    <script>
+        // API Status Check
+        async function checkAPIStatus() {
+            const backendStatus = document.getElementById('backend-status');
+            const databaseStatus = document.getElementById('database-status');
+            
+            try {
+                const response = await fetch('http://localhost:4000/api/health');
+                const data = await response.json();
+                
+                if (response.ok && data.status === 'healthy') {
+                    backendStatus.innerHTML = '<div class="status-dot"></div><span>Backend API: Online ✅</span>';
+                    databaseStatus.innerHTML = '<div class="status-dot"></div><span>Database: ' + data.database + ' ✅</span>';
+                } else {
+                    throw new Error('API Unhealthy');
+                }
+            } catch (error) {
+                backendStatus.innerHTML = '<div class="status-dot offline"></div><span>Backend API: Offline ❌</span>';
+                databaseStatus.innerHTML = '<div class="status-dot offline"></div><span>Database: Disconnected ❌</span>';
+            }
+        }
+
+        // Module Navigation
+        function openModule(moduleName) {
+            // Navigate to the actual module page
+            window.location.href = `${moduleName}.html`;
+        }
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAPIStatus();
+            
+            // Check API status every 30 seconds
+            setInterval(checkAPIStatus, 30000);
+            
+            // Add intersection observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all module cards
+            document.querySelectorAll('.module-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+
+        // Responsive font size adjustment
+        function adjustFontSize() {
+            const viewportWidth = window.innerWidth;
+            const rootElement = document.documentElement;
+            
+            if (viewportWidth < 320) {
+                rootElement.style.fontSize = '14px';
+            } else if (viewportWidth < 768) {
+                rootElement.style.fontSize = '16px';
+            } else if (viewportWidth < 1024) {
+                rootElement.style.fontSize = '18px';
+            } else {
+                rootElement.style.fontSize = '20px';
+            }
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', adjustFontSize);
+        adjustFontSize(); // Initial call
+    </script>
+
+    <script src="assets/js/api-functions.js"></script>
+    <script>
+        // Initialize API connection when page loads
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                // Initialize API connection
+                window.hipHopAPI = new HipHopAPI();
+                window.interactiveFunctions = new InteractiveFunctions(window.hipHopAPI);
+                
+                // Check API status
+                const statusElement = document.getElementById('api-status');
+                const isHealthy = await window.hipHopAPI.checkHealth();
+                
+                if (isHealthy) {
+                    statusElement.innerHTML = '<span style="color: #10b981;">✅ Backend API Connected (Port 4000)</span>';
+                    statusElement.style.background = 'rgba(16, 185, 129, 0.1)';
+                    statusElement.style.padding = '10px 20px';
+                    statusElement.style.borderRadius = '25px';
+                    statusElement.style.border = '1px solid rgba(16, 185, 129, 0.3)';
+                } else {
+                    statusElement.innerHTML = '<span style="color: #ef4444;">❌ Backend API Offline - Sprawdź czy serwer działa na porcie 4000</span>';
+                    statusElement.style.background = 'rgba(239, 68, 68, 0.1)';
+                    statusElement.style.padding = '10px 20px';
+                    statusElement.style.borderRadius = '25px';
+                    statusElement.style.border = '1px solid rgba(239, 68, 68, 0.3)';
+                }
+            } catch (error) {
+                console.error('API initialization error:', error);
+                document.getElementById('api-status').innerHTML = '<span style="color: #f59e0b;">⚠️ API Initialization Error</span>';
+            }
+        });
+
+        // Add hover effects for demo cards
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.demo-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-5px)';
+                    card.style.transition = 'transform 0.3s ease';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Add button hover effects
+            const buttons = document.querySelectorAll('button[onclick*="interactiveFunctions"]');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', () => {
+                    button.style.transform = 'scale(1.05)';
+                });
+                button.addEventListener('mouseleave', () => {
+                    button.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

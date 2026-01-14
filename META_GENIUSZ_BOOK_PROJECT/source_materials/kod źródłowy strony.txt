@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moja Strona Internetowa</title>
+    <meta name="description" content="Produkujemy i sprzedajemy tłumiki motocyklowe z tytanu - wytrzymałe, lekkie, z pięknym brzmieniem i wysokiej jakości. Sprawdź naszą ofertę i popraw osiągi swojego motocykla!">
+    <meta name="keywords" content="tłumiki motocyklowe, tłumiki z tytanu, produkcja tłumików, tłumiki sportowe, tłumiki do motocykli, akcesoria motocyklowe, tuning motocyklowy, wydechy motocyklowe, tłumiki custom, tłumiki wyścigowe">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Moja Strona Internetowa",
+        "url": "https://www.twojastrona.pl",
+        "logo": "https://drive.google.com/uc?export=view&id=ID_LOGO_FIRMOWEGO",
+        "sameAs": [
+            "https://www.instagram.com/prp_exhaust"
+        ]
+    }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0c0c0c;
+        }
+
+        nav {
+            margin: 0;
+            padding: 1em;
+            background-color: #444;
+            text-align: right;
+        }
+
+        nav a {
+            color: #ADFF2F;
+            margin: 0 1em;
+            text-decoration: none;
+        }
+
+        main {
+            padding: 2em;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 1em;
+            display: block;
+        }
+
+        .instagram-link {
+            color: #ADFF2F;
+        }
+
+        .company-name {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1em;
+        }
+
+        .company-name img {
+            height: 50px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-icons a img {
+            height: 30px;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                text-align: center;
+            }
+            .company-name {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .contact-info {
+            display: inline-block;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="company-name">
+        <img src="https://drive.google.com/uc?export=view&id=ID_LOGO_FIRMOWEGO" alt="Logo firmowe">
+        <div class="social-icons">
+            <a href="https://www.instagram.com/prp_exhaust" target="_blank"><img src="https://path/to/instagram-icon.png" alt="Instagram"></a>
+            <a href="https://www.facebook.com/profile.php?id=61560966670274" target="_blank"><img src="https://path/to/facebook-icon.png" alt="Facebook"></a>
+            <a href="https://www.youtube.com/@TomaszRacing" target="_blank"><img src="https://path/to/youtube-icon.png" alt="YouTube"></a>
+            <a href="https://www.tiktok.com/@prp_exhaust?_t=8q8AIOH422Y&_r=1" target="_blank"><img src="https://path/to/tiktok-icon.png" alt="TikTok"></a>
+        </div>
+    </div>
+    <nav>
+        <a href="#" onclick="loadContent('home')">Strona główna</a>
+        <a href="#" onclick="loadContent('about')">O nas</a>
+        <a href="#" onclick="loadContent('products')">Produkty</a>
+        <a href="#" onclick="loadContent('news')">Nowości</a>
+        <a href="#" onclick="loadContent('contact')">Kontakt</a>
+    </nav>
+    <main id="content">
+        <!-- Początkowa zawartość strony -->
+        <img src="https://drive.google.com/uc?export=view&id=ID_TWOJEGO_ZDJĘCIA" alt="Moje zdjęcie" loading="lazy">
+        <img src="https://drive.google.com/uc?export=view&id=ID_LOGO_FIRMOWEGO" alt="Logo firmowe" loading="lazy">
+    </main>
+    <footer>
+        <p>© 2024 Moja Strona Internetowa</p>
+    </footer>    
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-XXXXX-Y');
+
+        async function fetchData() {
+            try {
+                let response = await fetch('https://api.example.com/data');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                let data = await response.json();
+                console.log(data);
+                // Możesz teraz użyć danych na swojej stronie
+            } catch (error) {
+                console.error('There has been a problem with your fetch operation:', error);
+            }
+        }
+
+        function loadContent(page) {
+            let content = document.getElementById('content');
+            switch(page) {
+                case 'home':
+                    content.innerHTML = `
+                        <img src="https://drive.google.com/uc?export=view&id=ID_TWOJEGO_ZDJĘCIA" alt="Moje zdjęcie" class="fade-in">
+                        <img src="https://drive.google.com/uc?export=view&id=ID_LOGO_FIRMOWEGO" alt="Logo firmowe" class="fade-in">
+                    `;
+                    break;
+                case 'about':
+                    content.innerHTML = `
+                        <h1 style="color: white;">O nas</h1>
+                        <p style="color: white;">Polish Raceing Power "PRP"</p>
+                    `;
+                    break;
+                case 'news':
+                    content.innerHTML = `
+                        <h1 style="color: white;">Nowości</h1>
+                        <p style="color: white;">Linia tekstu 1<br>Linia tekstu 2<br>Linia tekstu 3</p>
+                    `;
+                    break;
+                case 'products':
+                    content.innerHTML = `
+                        <div style="display: flex; align-items: center; justify-content: center;">
+                            <img src="https://drive.google.com/uc?export=view&id=ID_ZDJĘCIA_PRODUKTU" alt="Zdjęcie produktu" style="margin-right: 20px;" class="fade-in">
+                            <div style="text-align: center; color: white;">
+                                <h1>Produkty</h1>
+                                <p>Opis produktu linia 1<br>Opis produktu linia 2<br>Opis produktu linia 3</p>
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/ID_FILMU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'contact':
+                    content.innerHTML = `
+                        <h1 style="color: white;">Kontakt</h1>
+                        <div class="contact-info">
+                            <p>Telefon: +48696099082</p>
+                            <p>E-mail: polish.racing.power@gmail.com</p>
+                            <p>Linia tekstu 3</p>
+                            <p><a href="https://m.me/TwojaNazwaUżytkownika" target="_blank">Skontaktuj się z nami na Messengerze</a></p>
+                            <p><a href="https://wa.me/NumerTelefonu?text=Wiadomość" target="_blank">Skontaktuj się z nami na WhatsApp</a></p>
+                        </div>
+                    `;
+                    break;
+                default:
+                    content.innerHTML = `
+                        <h1 style="color: white;">Strona główna</h1>
+                        <p style="color: white;">Witamy na naszej stronie!</p>
+                    `;
+                    break;
+            }
+        }
+
+                // Funkcje do zarządzania plikami cookie
+                function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        function eraseCookie(name) {
+            document.cookie = name + '=; Max-Age=-99999999;';
+        }
+
+        // Wywołaj funkcję fetchData, aby pobrać dane po załadowaniu strony
+        window.onload = fetchData;
+    </script>    
+
+</body>
+
+</html>

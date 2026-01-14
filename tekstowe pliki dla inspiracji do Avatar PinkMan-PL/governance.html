@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Governance — Hip Hop Universe</title>
+  <style>
+    :root{--bg:#041022;--card:#071626;--accent:#7cdbff;--muted:#9aa4b2;color-scheme:dark}
+    body{margin:0;font-family:Inter,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial;background:linear-gradient(180deg,#020617 0%,#052034 100%);color:#e6eef6}
+    .wrap{max-width:980px;margin:48px auto;padding:20px}
+    header{display:flex;align-items:center;justify-content:space-between}
+    a.back{color:var(--muted);text-decoration:none;font-size:14px}
+    h1{margin:12px 0 6px;font-size:28px}
+    .hero{background:rgba(255,255,255,0.02);padding:18px;border-radius:12px}
+    .controls{display:flex;gap:10px;margin-top:12px}
+    .btn{background:var(--accent);color:#042;padding:8px 12px;border-radius:8px;border:none;cursor:pointer}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:18px}
+    .card{background:var(--card);padding:16px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+    footer{margin-top:28px;color:var(--muted);font-size:13px}
+    @media (max-width:520px){h1{font-size:22px};.controls{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <a class="back" href="responsive-demo.html">← Powrót do demo</a>
+      </div>
+      <div style="text-align:right;color:var(--muted);font-size:13px">Governance Module</div>
+    </header>
+
+    <main>
+      <h1>Governance — DAO i głosowania</h1>
+      <div class="hero">
+        <p>Panel zarządzania społecznością i mechanizmy głosowania: tworzenie propozycji, bieżące głosowania i wyniki.</p>
+        <div class="controls" role="toolbar" aria-label="Kontrolki zarządzania">
+          <button class="btn" onclick="window.interactiveFunctions?.createProposal() || alert('Stwórz propozycję — demo')">Stwórz propozycję</button>
+          <button class="btn" onclick="window.interactiveFunctions?.vote() || alert('Zagłosuj — demo')">Zagłosuj</button>
+        </div>
+      </div>
+
+      <div class="grid" aria-label="Sekcje modułu governance">
+        <section class="card">
+          <h3>Propozycje</h3>
+          <p>Lista aktywnych i zakończonych propozycji, statusy i wyniki.</p>
+        </section>
+
+        <section class="card">
+          <h3>Głosowanie</h3>
+          <p>Interfejs do oddawania głosów, delegacje i historia głosowań.</p>
+        </section>
+
+        <section class="card">
+          <h3>Skład społeczności</h3>
+          <p>Role, uprawnienia i proponowane zmiany w strukturze.</p>
+        </section>
+
+        <section class="card">
+          <h3>Raporty</h3>
+          <p>Statystyki głosowań, zaangażowanie i automatyczne raporty.</p>
+        </section>
+      </div>
+
+      <footer>
+        <p>Plik tymczasowy wygenerowany do demo — integracja funkcji governance planowana w dalszym etapie.</p>
+      </footer>
+    </main>
+  </div>
+
+  <script src="assets/js/api-functions.js"></script>
+  <script>
+    // Initialize API for governance page
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        window.hipHopAPI = new HipHopAPI();
+        window.interactiveFunctions = new InteractiveFunctions(window.hipHopAPI);
+        console.log('🗳️ Governance API Integration Active');
+      } catch (error) {
+        console.error('❌ Governance API Integration Error:', error);
+      }
+    });
+  </script>
+</body>
+</html>
