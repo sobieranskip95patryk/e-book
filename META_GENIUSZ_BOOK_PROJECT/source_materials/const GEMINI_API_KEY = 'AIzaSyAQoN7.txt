@@ -1,0 +1,1 @@
+        const GEMINI_API_KEY = 'AIzaSyAQoN7OQhHZ4DKL3dbKkZrBDp7frWxGpyQ'; // Twój rzeczywisty klucz API

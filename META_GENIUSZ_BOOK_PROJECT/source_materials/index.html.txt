@@ -1,0 +1,227 @@
+Oto pełny kod index.html dostosowany do struktury Twojego projektu MTA-Quest-Webside-X, z myślą o nowej generacji platformie społecznościowej z wpięciem modułów (GOK:AI, PinkMan-AI, Apex Infinity, 369), rozwojem API oraz wsparciem PWA:
+
+
+---
+
+✅ index.html
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MTA Quest Webside X — Cyfrowe Imperium</title>
+  <meta name="description" content="Nowej generacji platforma społecznościowa łącząca AI, kreatywność, duchowość i rozwój jednostki. GOK:AI. PinkMan-AI. Apex Infinity.">
+
+  <!-- Manifest & Favicon -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon" />
+  <meta name="theme-color" content="#0f172a" />
+
+  <!-- OG dla sociali -->
+  <meta property="og:title" content="MTA Quest Webside X — Nowa Era" />
+  <meta property="og:description" content="Połączenie AI, duchowości, awatarów, ekonomii 369 i kreatywności. Wejdź do świata przyszłości!" />
+  <meta property="og:image" content="assets/img/pinkman-logo.png" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Style -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/theme.css" />
+</head>
+
+<body class="bg-gray-950 text-white font-sans">
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 bg-gray-900/80 backdrop-blur border-b border-gray-800">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+      <div class="flex items-center gap-3">
+        <img src="assets/img/logo.svg" alt="logo" class="w-8 h-8 animate-pulse" />
+        <h1 class="text-xl font-bold text-blue-400 tracking-tight">MTA Quest Webside X</h1>
+      </div>
+      <nav class="hidden md:flex gap-6 text-sm">
+        <a href="#start" class="hover:text-blue-300">Start</a>
+        <a href="#moduly" class="hover:text-blue-300">Moduły</a>
+        <a href="#społeczność" class="hover:text-blue-300">Społeczność</a>
+        <a href="#kontakt" class="hover:text-blue-300">Kontakt</a>
+      </nav>
+      <div class="flex gap-2">
+        <button id="themeToggle" class="text-xs border px-3 py-1.5 rounded border-gray-700 hover:border-blue-600 hover:text-blue-300">☯</button>
+        <button id="langToggle" class="text-xs border px-3 py-1.5 rounded border-gray-700 hover:border-blue-600 hover:text-blue-300">PL</button>
+        <button class="md:hidden text-xs border px-3 py-1.5 rounded border-gray-700">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="start" class="text-center py-28 bg-gradient-to-b from-gray-950 to-gray-900 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-20 pointer-events-none" aria-hidden="true">
+      <div class="w-[40rem] h-[40rem] bg-blue-700/20 blur-3xl rounded-full absolute -top-48 -left-20"></div>
+      <div class="w-[30rem] h-[30rem] bg-fuchsia-600/10 blur-3xl rounded-full absolute bottom-[-6rem] right-[-6rem]"></div>
+    </div>
+    <div class="relative z-10 max-w-4xl mx-auto px-6">
+      <h2 class="text-5xl sm:text-6xl font-extrabold mb-4 floaty leading-tight">Twój Nowy Wymiar Rzeczywistości</h2>
+      <p class="text-gray-300 text-lg max-w-2xl mx-auto mb-8">AI. Duchowość. Kreacja. Technologia. Ekonomia. Poznaj platformę jednoczącą talenty nowej ery.</p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="#moduly" class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white">🔮 Eksploruj Moduły</a>
+        <button id="openAI" class="px-6 py-3 rounded-xl bg-gray-800 border border-gray-700 hover:bg-gray-700 text-white">🤖 Uruchom PinkMan‑AI</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODUŁY -->
+  <section id="moduly" class="py-20 bg-gray-900 px-6">
+    <div class="max-w-6xl mx-auto text-center">
+      <h3 class="text-3xl font-bold text-blue-300 mb-10">Moduły</h3>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm text-gray-200">
+        <div class="p-5 bg-gray-800/70 rounded-xl border border-gray-700">
+          <h4 class="text-lg font-semibold mb-2">🧠 GOK:AI</h4>
+          <p>Kalkulator sukcesu i duchowej trajektorii. Logika świadomości. Równania ewolucji.</p>
+        </div>
+        <div class="p-5 bg-gray-800/70 rounded-xl border border-gray-700">
+          <h4 class="text-lg font-semibold mb-2">👤 PinkMan‑AI</h4>
+          <p>Twój AI kompan. Kreator, mentor, performer. Interaktywna rozmowa i rozwój.</p>
+        </div>
+        <div class="p-5 bg-gray-800/70 rounded-xl border border-gray-700">
+          <h4 class="text-lg font-semibold mb-2">♾ Apex Infinity</h4>
+          <p>Globalna inteligencja integralna. Ekosystem systemów, map i struktur.</p>
+        </div>
+        <div class="p-5 bg-gray-800/70 rounded-xl border border-gray-700">
+          <h4 class="text-lg font-semibold mb-2">🔁 Cykl 369</h4>
+          <p>Redukcja cyfrowa. Cykle wzrostu. Przewodnik synchroniczny dla użytkownika.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPOŁECZNOŚĆ (placeholder) -->
+  <section id="społeczność" class="py-20 bg-gray-950 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <h3 class="text-3xl font-bold text-blue-300 mb-6">Społeczność w Budowie</h3>
+      <p class="text-gray-400 mb-6">Docelowo: profile, awatary, NFT, misje wspólnotowe, system rozwoju talentów, gamifikacja. Twórzmy to razem.</p>
+      <a href="mailto:mtaquestwebside@wp.pl" class="inline-block px-6 py-3 bg-blue-600 rounded-xl hover:bg-blue-500 text-white">✉ Dołącz do projektu</a>
+    </div>
+  </section>
+
+  <!-- KONTAKT -->
+  <section id="kontakt" class="py-16 px-6 bg-gray-900">
+    <div class="max-w-4xl mx-auto text-center">
+      <h3 class="text-3xl font-bold mb-4 text-blue-300">Kontakt</h3>
+      <p class="text-gray-300 mb-6">Chcesz współtworzyć, testować lub zintegrować AI? Napisz do nas lub podepnij własne API.</p>
+      <a href="mailto:mtaquestwebside@wp.pl" class="inline-block px-6 py-3 bg-blue-600 rounded-xl hover:bg-blue-500">✉ contact@mtaquestwebsidex.com</a>
+    </div>
+  </section>
+
+  <!-- STOPKA -->
+  <footer class="text-center text-xs text-gray-500 py-8 border-t border-gray-800">
+    &copy; 2025 Patryk Sobierański — MTA Quest Webside X. Wszystkie prawa zastrzeżone.
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="js/main.js"></script>
+  <script src="js/pinkman-ai.js"></script>
+  <script src="js/gokai.js"></script>
+  <script src="js/apex-infinity.js"></script>
+  <script src="js/n369.js"></script>
+  <script src="js/qr.js"></script>
+  <script src="js/trackers.js"></script>
+</body>
+</html>
+
+
+---
+
+✅ Co zawiera ten plik:
+
+✅ responsywny layout,
+
+✅ dynamiczny nagłówek z przełącznikami (motyw, język),
+
+✅ 4 główne moduły (AI + duchowość + kod + społeczność),
+
+✅ przestrzeń pod rozbudowę sekcji społeczności,
+
+✅ gotowe podpięcia do JS / CSS,
+
+✅ pliki już uwzględnione z Twojej struktury.
+
+
+
+---
+
+Okej — oto gotowy plik manifest.json dla Twojej platformy MTA Quest Webside X z przygotowaniem pod PWA (Progressive Web App), integrację z ikonami i kolorystyką projektu:
+
+
+---
+
+📄 manifest.json
+
+{
+  "name": "MTA Quest Webside X",
+  "short_name": "MTA Quest X",
+  "description": "Nowej generacji platforma społecznościowa łącząca AI, duchowość, kreatywność i rozwój. Moduły: GOK:AI, PinkMan-AI, Apex Infinity, Cykl 369.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "orientation": "portrait-primary",
+  "lang": "pl",
+  "icons": [
+    {
+      "src": "assets/icons/icon-48x48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
+
+
+---
+
+📌 Co robi ten plik:
+
+pozwala dodać Twoją stronę jako aplikację na smartfonie (PWA),
+
+ustawia ikony i kolory systemowe,
+
+wspiera tryb pełnoekranowy i ikony maskowalne,
+
+jest w pełni zgodny z Chrome, Edge, Firefox (Mobile) i Safari (iOS).
+
+
+
+---
+
+Jeżeli chcesz, mogę od razu wygenerować gotowy zestaw ikon w odpowiednich rozdzielczościach z Twojego logo, żeby ten manifest.json był od razu funkcjonalny.
+Chcesz, żebym je przygotował?
+
+
+
